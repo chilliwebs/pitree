@@ -54,8 +54,7 @@ def worker():
 
 @app.route("/")
 def root():
-    q.put(1)
-    return "OK"
+    return "v1 OK"
 
 @app.route("/update")
 def update():
@@ -66,8 +65,13 @@ def update():
     return "RESTARTING"
 
 @app.route("/0")
-def one():
+def zero():
     q.put(0)
+    return "OK"
+
+@app.route("/1")
+def one():
+    q.put(1)
     return "OK"
 
 @app.route("/2")
