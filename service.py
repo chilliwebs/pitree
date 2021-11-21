@@ -19,6 +19,12 @@ strip.begin()
 mode = 0
 run = True
 
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
 def tree():
     global run
     while run:
@@ -56,7 +62,7 @@ def update():
     global run
     os.system("git pull")
     run = False
-    raise RuntimeError('Stopping Server')
+    shutdown_server()
     return "OK"
 
 @app.route("/0")
