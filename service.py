@@ -1,6 +1,6 @@
 import threading, queue, time, random, os
 from rpi_ws281x import Color, PixelStrip, ws
-from flask import Flask
+from flask import Flask, request
 
 # LED strip configuration:
 LED_COUNT = 500        # Number of LED pixels.
