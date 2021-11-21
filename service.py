@@ -63,7 +63,7 @@ def update():
     os.system("git pull")
     run = False
     shutdown_server()
-    return "OK"
+    return "RESTARTING"
 
 @app.route("/0")
 def one():
