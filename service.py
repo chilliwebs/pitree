@@ -60,7 +60,7 @@ def root():
 @app.route("/update")
 def update():
     global run
-    os.system("git pull")
+    os.system("git -C /home/pi/pitree pull")
     run = False
     shutdown_server()
     return "RESTARTING"
