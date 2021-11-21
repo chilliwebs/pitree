@@ -1,4 +1,4 @@
-import threading, queue, time, random
+import threading, queue, time, random, os
 from rpi_ws281x import Color, PixelStrip, ws
 from flask import Flask
 
