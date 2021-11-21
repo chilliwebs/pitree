@@ -17,9 +17,11 @@ app = Flask(__name__)
 strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
 strip.begin()
 mode = 0
+run = True
 
 def tree():
-    while True:
+    global run
+    while run:
         global mode
         for i in range(strip.numPixels()):
             if mode == 0:
@@ -32,7 +34,8 @@ def tree():
         time.sleep(1)
 
 def worker():
-    while True:
+    global run
+    while run:
         try:
             global mode
             item = q.get(True, 1)
@@ -46,6 +49,14 @@ def worker():
 @app.route("/")
 def root():
     q.put(1)
+    return "OK"
+
+@app.route("/update")
+def root():
+    global run
+    os.system("git pull")
+    run = False
+    raise RuntimeError('Stopping Server')
     return "OK"
 
 @app.route("/0")
