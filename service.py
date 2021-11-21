@@ -54,7 +54,7 @@ def worker():
 
 @app.route("/")
 def root():
-    return "v1 OK"
+    return "v0.0.1 OK"
 
 @app.route("/update")
 def update():
