@@ -52,7 +52,7 @@ def root():
     return "OK"
 
 @app.route("/update")
-def root():
+def update():
     global run
     os.system("git pull")
     run = False
