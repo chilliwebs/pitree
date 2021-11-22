@@ -60,8 +60,27 @@ def tree():
                     strip.setPixelColor((n*4)+2, c)
                     strip.setPixelColor((n*4)+3, c)
                     strip.show()
-        
+
         if mode == 4:
+            colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
+            for c in colors:
+                if mode != 4:
+                        break
+                for r in range(10)):
+                    if mode != 4:
+                            break
+                    for n in range(int(strip.numPixels()/2)):
+                        if mode != 4:
+                            break
+                        if (r % 2) == 0:
+                            strip.setPixelColor(n*2, c)
+                            strip.setPixelColor((n*2)+1, Color(0, 0, 0))
+                        else:
+                            strip.setPixelColor(n*2, Color(0, 0, 0))
+                            strip.setPixelColor((n*2)+1, c)
+                        strip.show()
+        
+        if mode == 5:
             for i in range(strip.numPixels()):
                 strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
             strip.show()
