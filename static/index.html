@@ -4,6 +4,12 @@
 <head>
     <title>PiTree</title>
     <script>
+        function setMode(no) {
+            fetch('//mode?no='+no).then((resp) => {
+                window.location.reload();
+            });
+        }
+
         window.onload = function () {
             fetch('/ver').then(async (ver) => {
                 console.log(ver);
@@ -16,13 +22,22 @@
                     window.location.reload();
                 });
             }
+            document.getElementById('mode0').onclick = function () {
+                setMode(0);
+            }
+            document.getElementById('mode1').onclick = function () {
+                setMode(1);
+            }
+            document.getElementById('mode2').onclick = function () {
+                setMode(2);
+            }
         }
     </script>
 </head>
 
 <body>
-    <div>PiTree v<span id="ver">loading...</span></div>
-    <button id="update">Update</button>
+    <div>PiTree v<span id="ver">loading...</span> <button id="update">Update</button></div>
+    <button id="mode0">White</button><button id="mode1">Warm</button><button id="mode2">Random</button>
 </body>
 
 </html>
