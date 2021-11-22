@@ -78,7 +78,7 @@ def tree():
                         else:
                             strip.setPixelColor(n*2, Color(0, 0, 0))
                             strip.setPixelColor((n*2)+1, c)
-                        strip.show()
+                    strip.show()
         
         if mode == 5:
             for i in range(strip.numPixels()):
