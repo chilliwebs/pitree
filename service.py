@@ -58,7 +58,7 @@ def index():
 
 @app.route("/ver")
 def ver():
-    return '0.0.7'
+    return '0.0.8'
 
 @app.route("/update")
 def update():
