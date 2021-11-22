@@ -29,7 +29,6 @@ def tree():
     global run
     while run:
         global mode
-
         if mode == 0:
             for i in range(strip.numPixels()):
                 strip.setPixelColor(i, Color(255, 175, 75))
@@ -56,6 +55,12 @@ def tree():
                     strip.show()
                     #time.sleep(0.01)
                 time.sleep(1)
+        
+        if mode == 4:
+            for i in range(strip.numPixels()):
+                strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
+            strip.show()
+
 def worker():
     global run
     while run:
