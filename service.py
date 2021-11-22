@@ -50,7 +50,7 @@ def tree():
         if mode == 3:
             colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
             for c in colors:
-                for n in range(strip.numPixels()/2):
+                for n in range(int(strip.numPixels()/2)):
                     strip.setPixelColor(n*2, c)
                     strip.setPixelColor((n*2)+1, c)
                     strip.show()
