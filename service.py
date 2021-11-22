@@ -86,7 +86,7 @@ def tree():
             for c in colors:
                 if mode != 5:
                         break
-                for r in range(10):
+                for r in range(11):
                     if mode != 5:
                             break
                     for n in range(int(strip.numPixels()/3)):
@@ -100,7 +100,7 @@ def tree():
                             strip.setPixelColor(n*3, Color(0, 0, 0))
                             strip.setPixelColor((n*3)+1, c)
                             strip.setPixelColor((n*3)+2, Color(0, 0, 0))
-                        else:
+                        if (r % 3) == 2:
                             strip.setPixelColor(n*3, Color(0, 0, 0))
                             strip.setPixelColor((n*3)+1, Color(0, 0, 0))
                             strip.setPixelColor((n*3)+2, c)
