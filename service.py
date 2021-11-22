@@ -92,7 +92,7 @@ def tree():
             for c in colors:
                 if mode != 5:
                     break
-                for i in range(strip.numPixels()/4):
+                for i in range(int(strip.numPixels()/4)):
                     if mode != 5:
                         break
                     strip.setPixelColor((i*4), Color(0, 0, 0))
