@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>PiTree</title>
+    <title>PiTree</title>
     <script>
-        window.onload = function() {
+        window.onload = function () {
             fetch('/ver').then(async (ver) => {
                 console.log(ver);
-                document.getElementById('ver').innerText = await ver.text();
+                var version = await ver.text();
+                document.getElementById('ver').innerText = version;
+                document.title = "PiTree v" + version;
             });
-            document.getElementById('update').onclick = function() {
+            document.getElementById('update').onclick = function () {
                 fetch('/update').then((resp) => {
                     window.location.reload();
                 });
@@ -16,8 +19,10 @@
         }
     </script>
 </head>
+
 <body>
- 	<h1>Hello PiTree <span id="ver">loading...</span></h1>
+    <div>PiTree v<span id="ver">loading...</span></div>
     <button id="update">Update</button>
 </body>
+
 </html>
