@@ -66,7 +66,7 @@ def tree():
             for c in colors:
                 if mode != 4:
                         break
-                for r in range(10)):
+                for r in range(10):
                     if mode != 4:
                             break
                     for n in range(int(strip.numPixels()/2)):
