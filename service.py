@@ -56,9 +56,13 @@ def worker():
 def index():
     return current_app.send_static_file('index.html')
 
+@app.route("/update.png")
+def index():
+    return current_app.send_static_file('update.png')
+
 @app.route("/ver")
 def ver():
-    return '0.0.15'
+    return '0.0.16'
 
 @app.route("/git")
 def git():

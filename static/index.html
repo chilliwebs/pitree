@@ -12,7 +12,6 @@
 
         window.onload = async function () {
             fetch('/ver').then(async (ver) => {
-                console.log(ver);
                 var version = await ver.text();
                 document.getElementById('ver').innerText = version;
                 document.title = "PiTree v" + version;
@@ -37,7 +36,6 @@
             var fremote = await fetch('/git-remote');
             var remote = await fremote.text();
             if(git != remote) {
-                console.log('updates');
                 document.getElementById('update').style.display = 'inline';
             }
         }
@@ -45,7 +43,7 @@
 </head>
 
 <body>
-    <div>PiTree v<span id="ver">loading...</span> <button id="update" style="display: none;">Update</button></div>
+    <div>PiTree v<span id="ver">loading...</span> <button id="update" style="display: none;"><img src="update.png" /></button></div>
     <button id="mode0">Warm</button><button id="mode1">White</button><button id="mode2">Random</button>
 </body>
 
