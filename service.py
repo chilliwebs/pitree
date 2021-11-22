@@ -104,7 +104,7 @@ def tree():
                             strip.setPixelColor(n*3, Color(0, 0, 0))
                             strip.setPixelColor((n*3)+1, Color(0, 0, 0))
                             strip.setPixelColor((n*3)+2, c)
-                    time.sleep(0.1)
+                    time.sleep(0.25)
                     strip.show()
         
         if mode == 6:
