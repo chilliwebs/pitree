@@ -1,6 +1,6 @@
 import threading, queue, time, random, os
 from rpi_ws281x import Color, PixelStrip, ws
-from flask import Flask, request
+from flask import Flask, request, current_app
 
 # LED strip configuration:
 LED_COUNT = 500        # Number of LED pixels.
@@ -53,8 +53,12 @@ def worker():
             continue # nothing
 
 @app.route("/")
-def root():
-    return "v0.0.4 OK"
+def index():
+    return current_app.send_static_file('index.html')
+
+@app.route("/ver")
+def ver():
+    return '0.0.5'
 
 @app.route("/update")
 def update():
@@ -69,21 +73,6 @@ def setMode():
     no = request.args.get('no', default = None, type = int)
     if no != None:
         q.put(no)
-    return "OK"
-
-@app.route("/0")
-def zero():
-    q.put(0)
-    return "OK"
-
-@app.route("/1")
-def one():
-    q.put(1)
-    return "OK"
-
-@app.route("/2")
-def two():
-    q.put(2)
     return "OK"
 
 if __name__ == "__main__":
