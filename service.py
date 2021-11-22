@@ -55,7 +55,7 @@ def tree():
                     for i in range(n):
                         strip.setPixelColor(i, c)
                     strip.show()
-                    time.sleep(0.1)
+                    #time.sleep(0.01)
                 time.sleep(1)
 def worker():
     global run
