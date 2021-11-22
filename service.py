@@ -64,12 +64,11 @@ def update():
     shutdown_server()
     return "RESTARTING"
 
-@app.route("/mode/<no>")
+@app.route("/mode")
 def setMode(no):
-    try:
-        q.put(int(no))
-    except ValueError:
-        return no + ' value is not an intege'
+    no = request.args.get('no', default = None, type = int)
+    if no != None:
+        q.put(no)
     return "OK"
 
 @app.route("/0")
