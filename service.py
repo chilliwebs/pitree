@@ -54,7 +54,7 @@ def worker():
 
 @app.route("/")
 def root():
-    return "v0.0.2 OK"
+    return "v0.0.3 OK"
 
 @app.route("/update")
 def update():
@@ -64,7 +64,7 @@ def update():
     shutdown_server()
     return "RESTARTING"
 
-@app.route("/mode<no>")
+@app.route("/mode/<no>")
 def setMode(no):
     try:
         q.put(int(no))
