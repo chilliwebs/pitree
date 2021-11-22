@@ -5,10 +5,12 @@
     <script>
         window.onload = function() {
             fetch('/ver').then((ver) => {
-                document.getElementById('ver').innerText = ver;
+                document.getElementById('ver').innerText = ver.text();
             });
             document.getElementById('update').onclick = function() {
-                fetch('/update');
+                fetch('/update').then((resp) => {
+                    window.location.reload();
+                });
             }
         }
     </script>
