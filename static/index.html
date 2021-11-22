@@ -12,6 +12,17 @@
         }
     </style>
     <script>
+        function checkUpdates() {
+            Promise.all([
+                fetch('/git').then((g) => g.text()),
+                fetch('/git-remote').then((g) => g.text())
+            ]).then((v) => {
+                if (v.length == 2 && v[0] != v[1]) {
+                    document.getElementById('update').style.display = 'inline';
+                }
+            });
+        }
+
         function setMode(no) {
             fetch('/mode?no=' + no).then((resp) => {
                 window.location.reload();
@@ -25,9 +36,9 @@
                 });
             }
 
-            for(var i = 0; i < 4; i++) {
+            for (var i = 0; i < 4; i++) {
                 var no = i;
-                document.getElementById('mode'+no).onclick = function () {
+                document.getElementById('mode' + no).onclick = function () {
                     setMode(no);
                     return false;
                 }
@@ -39,15 +50,9 @@
                 document.title = "PiTree v" + version;
             });
 
+            checkUpdates();
             setInterval(() => {
-                Promise.all([
-                    fetch('/git').then((g) => g.text()),
-                    fetch('/git-remote').then((g) => g.text())
-                ]).then((v) => {
-                    if (v.length == 2 && v[0] != v[1]) {
-                        document.getElementById('update').style.display = 'inline';
-                    }
-                });
+                checkUpdates();
             }, 30000);
         }
     </script>
@@ -57,7 +62,8 @@
     <h3>PiTree v<span id="ver">loading...</span> <img id="update" title="updates avalible" style="display: none;"
             src="update.png" /></h3>
     <div>Modes:</div>
-    <button id="mode0">Warm</button><button id="mode1">White</button><button id="mode2">Random</button><button id="mode3">Fill</button>
+    <button id="mode0">Warm</button><button id="mode1">White</button><button id="mode2">Random</button><button
+        id="mode3">Fill</button>
 </body>
 
 </html>
