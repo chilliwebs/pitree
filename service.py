@@ -136,7 +136,7 @@ def tree():
                 for i in range(strip.numPixels()):
                     if mode != 6:
                         break
-                    pixel_index = (i * 256 // strip.numPixels() // 4) + j
+                    pixel_index = (i * 256 // strip.numPixels()) + j*4
                     r, g, b = wheel(pixel_index & 255)
                     strip.setPixelColor(i, Color(r, g, b) )
                 strip.show()
