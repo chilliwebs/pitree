@@ -2,8 +2,20 @@
 <html>
 <head>
 	<title>PiTree</title>
+    <script>
+        window.onload = function() {
+            fetch('/ver').then((ver) => {
+                document.getElementById('ver').innerText = ver;
+            });
+            document.getElementById('update').onclick = function() {
+                fetch('/update');
+            }
+        }
+    </script>
 </head>
 <body>
  	<h1>Hello PiTree</h1>
+     <span id="ver">loading...</span>
+    <button id="update">Update</button>
 </body>
 </html>
