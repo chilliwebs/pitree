@@ -8,6 +8,7 @@
             width: 2em;
             height: 2em;
             vertical-align: middle;
+            cursor: pointer;
         }
     </style>
     <script>
@@ -18,16 +19,12 @@
         }
 
         window.onload = async function () {
-            fetch('/ver').then(async (ver) => {
-                var version = await ver.text();
-                document.getElementById('ver').innerText = version;
-                document.title = "PiTree v" + version;
-            });
             document.getElementById('update').onclick = function () {
                 fetch('/update').then((resp) => {
                     window.location.reload();
                 });
             }
+
             document.getElementById('mode0').onclick = function () {
                 setMode(0);
             }
@@ -38,19 +35,28 @@
                 setMode(2);
             }
 
-            var fgit = await fetch('/git');
-            var git = await fgit.text();
-            var fremote = await fetch('/git-remote');
-            var remote = await fremote.text();
-            if(git != remote) {
-                document.getElementById('update').style.display = 'inline';
-            }
+            fetch('/ver').then(async (ver) => {
+                var version = await ver.text();
+                document.getElementById('ver').innerText = version;
+                document.title = "PiTree v" + version;
+            });
+
+            Promise.all([
+                fetch('/git').then((g) => g.text()),
+                fetch('/git-remote').then((g) => g.text())
+            ]).then((v) => {
+                console.log(v);
+                if(v.length == 2 && v[0] != v[1]) {
+                    document.getElementById('update').style.display = 'inline';
+                }
+            });
         }
     </script>
 </head>
 
 <body>
-    <div>PiTree v<span id="ver">loading...</span> <img id="update" style="display: none;" src="update.png" /></div>
+    <div>PiTree v<span id="ver">loading...</span> <img id="update" title="updates avalible" style="display: none;" src="update.png" /></div>
+    <div>Modes:</div>
     <button id="mode0">Warm</button><button id="mode1">White</button><button id="mode2">Random</button>
 </body>
 
