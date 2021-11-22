@@ -4,9 +4,9 @@
 	<title>PiTree</title>
     <script>
         window.onload = function() {
-            fetch('/ver').then((ver) => {
+            fetch('/ver').then(async (ver) => {
                 console.log(ver);
-                document.getElementById('ver').innerText = ver.text();
+                document.getElementById('ver').innerText = await ver.text();
             });
             document.getElementById('update').onclick = function() {
                 fetch('/update').then((resp) => {
