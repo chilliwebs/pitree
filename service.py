@@ -58,7 +58,7 @@ def index():
 
 @app.route("/ver")
 def ver():
-    return '0.0.12'
+    return '0.0.13'
 
 @app.route("/git")
 def git():
