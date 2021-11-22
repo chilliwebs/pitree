@@ -66,7 +66,7 @@ def git():
 
 @app.route("/git-remote")
 def remote():
-    return subprocess.check_output('git ls-remote -q | grep HEAD | cut -c1-40', shell=True, stderr=subprocess.STDOUT))
+    return subprocess.check_output('git ls-remote -q | grep HEAD | cut -c1-40', shell=True, stderr=subprocess.STDOUT)
 
 @app.route("/update")
 def update():
