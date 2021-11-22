@@ -37,11 +37,11 @@
             }
 
             for (var i = 0; i < 4; i++) {
-                var no = i;
-                document.getElementById('mode' + no).onclick = function () {
-                    setMode(no);
-                    return false;
-                }
+                (function (no) {
+                    document.getElementById('mode' + no).addEventListener('click', function () {
+                        setMode(no);
+                    });
+                })(i);
             }
 
             fetch('/ver').then(async (ver) => {

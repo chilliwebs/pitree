@@ -52,7 +52,7 @@ def tree():
             colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
             for c in colors:
                 for n in range(strip.numPixels()):
-                    strip.setPixelColor(i, c)
+                    strip.setPixelColor(n, c)
                     strip.show()
                     #time.sleep(0.01)
                 time.sleep(1)
