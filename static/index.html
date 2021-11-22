@@ -25,14 +25,10 @@
                 });
             }
 
-            document.getElementById('mode0').onclick = function () {
-                setMode(0);
-            }
-            document.getElementById('mode1').onclick = function () {
-                setMode(1);
-            }
-            document.getElementById('mode2').onclick = function () {
-                setMode(2);
+            for(var i = 0; i < 4; i++) {
+                document.getElementById('mode'+i).onclick = function () {
+                    setMode(i);
+                }
             }
 
             fetch('/ver').then(async (ver) => {
@@ -59,7 +55,7 @@
     <h3>PiTree v<span id="ver">loading...</span> <img id="update" title="updates avalible" style="display: none;"
             src="update.png" /></h3>
     <div>Modes:</div>
-    <button id="mode0">Warm</button><button id="mode1">White</button><button id="mode2">Random</button>
+    <button id="mode0">Warm</button><button id="mode1">White</button><button id="mode2">Random</button><button id="mode3">Fill</button>
 </body>
 
 </html>

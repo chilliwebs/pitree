@@ -29,16 +29,34 @@ def tree():
     global run
     while run:
         global mode
-        for i in range(strip.numPixels()):
-            if mode == 0:
-                strip.setPixelColor(i, Color(255, 175, 75))
-            if mode == 1:
-                strip.setPixelColor(i, Color(255, 255, 255))
-            if mode == 2:
-                strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
-        strip.show()
-        time.sleep(1)
 
+        if mode == 0:
+            for i in range(strip.numPixels()):
+                strip.setPixelColor(i, Color(255, 175, 75))
+            strip.show()
+            time.sleep(1)
+
+        if mode == 1:
+            for i in range(strip.numPixels()):
+                strip.setPixelColor(i, Color(255, 255, 255))
+            strip.show()
+            time.sleep(1)
+            
+        if mode == 2:
+            for i in range(strip.numPixels()):
+                strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
+            strip.show()
+            time.sleep(1)
+
+        if mode == 3:
+            colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
+            for c in colors:
+                for n in range(strip.numPixels()):
+                    for i in range(n):
+                        strip.setPixelColor(i, c)
+                    strip.show()
+                    time.sleep(0.1)
+                time.sleep(1)
 def worker():
     global run
     while run:
@@ -62,7 +80,7 @@ def update_img():
 
 @app.route("/ver")
 def ver():
-    return '0.0.22'
+    return '0.0.23'
 
 @app.route("/git")
 def git():
