@@ -3,6 +3,12 @@
 
 <head>
     <title>PiTree</title>
+    <style>
+        #update {
+            width: 3em;
+            height: 3em;
+        }
+    </style>
     <script>
         function setMode(no) {
             fetch('/mode?no='+no).then((resp) => {
@@ -43,7 +49,7 @@
 </head>
 
 <body>
-    <div>PiTree v<span id="ver">loading...</span> <button id="update" style="display: none;"><img src="update.png" /></button></div>
+    <div>PiTree v<span id="ver">loading...</span> <img id="update" style="display: none;" src="update.png" /></div>
     <button id="mode0">Warm</button><button id="mode1">White</button><button id="mode2">Random</button>
 </body>
 

@@ -62,7 +62,7 @@ def update_img():
 
 @app.route("/ver")
 def ver():
-    return '0.0.16'
+    return '0.0.17'
 
 @app.route("/git")
 def git():
