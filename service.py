@@ -94,16 +94,16 @@ def tree():
                             break
                         if (r % 3) == 0:
                             strip.setPixelColor(n*3, c)
-                            strip.setPixelColor((n*2)+1, Color(0, 0, 0))
-                            strip.setPixelColor((n*2)+2, Color(0, 0, 0))
+                            strip.setPixelColor((n*3)+1, Color(0, 0, 0))
+                            strip.setPixelColor((n*3)+2, Color(0, 0, 0))
                         if (r % 3) == 1:
                             strip.setPixelColor(n*3, Color(0, 0, 0))
-                            strip.setPixelColor((n*2)+1, c)
-                            strip.setPixelColor((n*2)+2, Color(0, 0, 0))
+                            strip.setPixelColor((n*3)+1, c)
+                            strip.setPixelColor((n*3)+2, Color(0, 0, 0))
                         else:
                             strip.setPixelColor(n*3, Color(0, 0, 0))
-                            strip.setPixelColor((n*2)+1, Color(0, 0, 0))
-                            strip.setPixelColor((n*2)+2, c)
+                            strip.setPixelColor((n*3)+1, Color(0, 0, 0))
+                            strip.setPixelColor((n*3)+2, c)
                     time.sleep(0.1)
                     strip.show()
         
