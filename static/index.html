@@ -24,9 +24,7 @@
         }
 
         function setMode(no) {
-            fetch('/mode?no=' + no).then((resp) => {
-                window.location.reload();
-            });
+            fetch('/mode?no=' + no);
         }
 
         window.onload = async function () {
@@ -39,7 +37,6 @@
             for (var i = 0; i < 6; i++) {
                 (function (no) {
                     document.getElementById('mode' + no).addEventListener('click', function (event) {
-                        event.preventDefault();
                         setMode(no);
                     }, false);
                 })(i);
