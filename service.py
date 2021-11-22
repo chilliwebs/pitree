@@ -66,31 +66,11 @@ def tree():
             for c in colors:
                 if mode != 4:
                         break
-                for r in range(10):
+                for r in range(11):
                     if mode != 4:
                             break
-                    for n in range(int(strip.numPixels()/2)):
-                        if mode != 4:
-                            break
-                        if (r % 2) == 0:
-                            strip.setPixelColor(n*2, c)
-                            strip.setPixelColor((n*2)+1, Color(0, 0, 0))
-                        else:
-                            strip.setPixelColor(n*2, Color(0, 0, 0))
-                            strip.setPixelColor((n*2)+1, c)
-                    time.sleep(0.1)
-                    strip.show()
-
-        if mode == 5:
-            colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
-            for c in colors:
-                if mode != 5:
-                        break
-                for r in range(11):
-                    if mode != 5:
-                            break
                     for n in range(int(strip.numPixels()/3)):
-                        if mode != 5:
+                        if mode != 4:
                             break
                         if (r % 3) == 0:
                             strip.setPixelColor(n*3, c)
@@ -104,9 +84,21 @@ def tree():
                             strip.setPixelColor(n*3, Color(0, 0, 0))
                             strip.setPixelColor((n*3)+1, Color(0, 0, 0))
                             strip.setPixelColor((n*3)+2, c)
-                    time.sleep(0.25)
+                    time.sleep(0.1)
                     strip.show()
         
+        if mode == 5:
+            colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
+            for c in colors:
+                if mode != 5:
+                    break
+                for i in range(strip.numPixels()):
+                    if mode != 5:
+                        break
+                    strip.setPixelColor(i, Color(0, 0, 0))
+                    strip.setPixelColor((i+1)%strip.numPixels(), c)
+                    strip.show()
+
         if mode == 6:
             for i in range(strip.numPixels()):
                 strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
