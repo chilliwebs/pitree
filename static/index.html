@@ -5,7 +5,7 @@
     <title>PiTree</title>
     <script>
         function setMode(no) {
-            fetch('//mode?no='+no).then((resp) => {
+            fetch('/mode?no='+no).then((resp) => {
                 window.location.reload();
             });
         }
