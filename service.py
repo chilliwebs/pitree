@@ -57,7 +57,7 @@ def index():
     return current_app.send_static_file('index.html')
 
 @app.route("/update.png")
-def index():
+def update_img():
     return current_app.send_static_file('update.png')
 
 @app.route("/ver")
