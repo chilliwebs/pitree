@@ -1,4 +1,4 @@
-import threading, queue, time, random, os
+import threading, queue, time, random, os, subprocess
 from rpi_ws281x import Color, PixelStrip, ws
 from flask import Flask, request, current_app
 
@@ -58,7 +58,7 @@ def index():
 
 @app.route("/ver")
 def ver():
-    return '0.0.9'
+    return '0.0.10'
 
 @app.route("/git")
 def git():
