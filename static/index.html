@@ -32,8 +32,10 @@
                 setMode(2);
             }
 
-            var git = await fetch('/git').text();
-            var remote = await fetch('/git-remote').text();
+            var fgit = await fetch('/git');
+            var git = await fgit.text();
+            var fremote = await fetch('/git-remote');
+            var remote = await fremote.text();
             if(git != remote) {
                 console.log('updates');
                 document.getElementById('update').style.display = 'inline';
