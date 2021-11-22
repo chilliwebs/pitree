@@ -19,6 +19,28 @@ strip.begin()
 mode = 0
 run = True
 
+def wheel(pos):
+    # Input a value 0 to 255 to get a color value.
+    # The colours are a transition r - g - b - back to r.
+    if pos < 0 or pos > 255:
+        r = g = b = 0
+    elif pos < 85:
+        r = int(pos * 3)
+        g = int(255 - pos * 3)
+        b = 0
+    elif pos < 170:
+        pos -= 85
+        r = int(255 - pos * 3)
+        g = 0
+        b = int(pos * 3)
+    else:
+        pos -= 170
+        r = 0
+        g = int(pos * 3)
+        b = int(255 - pos * 3)
+    return (r, g, b)
+    
+
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
@@ -108,6 +130,18 @@ def tree():
                     strip.show()
 
         if mode == 6:
+            for j in range(255):
+                if mode != 6:
+                        break
+                for i in range(strip.numPixels()):
+                    if mode != 6:
+                        break
+                    pixel_index = (i * 256 // strip.numPixels()) + j
+                    r, g, b = wheel(pixel_index & 255)
+                    strip.setPixelColor(i, Color(r, g, b) )
+                strip.show()
+
+        if mode == 7:
             for i in range(strip.numPixels()):
                 strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
             strip.show()
