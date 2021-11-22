@@ -23,10 +23,6 @@
             });
         }
 
-        function setMode(no) {
-            fetch('/mode?no=' + no);
-        }
-
         window.onload = async function () {
             document.getElementById('update').onclick = function () {
                 fetch('/update').then((resp) => {
@@ -37,7 +33,7 @@
             for (var i = 0; i < 6; i++) {
                 (function (no) {
                     document.getElementById('mode' + no).addEventListener('click', function (event) {
-                        setMode(no);
+                        fetch('/mode?no=' + no);
                     }, false);
                 })(i);
             }
