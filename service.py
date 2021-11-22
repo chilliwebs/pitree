@@ -58,15 +58,15 @@ def index():
 
 @app.route("/ver")
 def ver():
-    return '0.0.10'
+    return '0.0.11'
 
 @app.route("/git")
 def git():
-    return subprocess.check_output(['git', 'rev-parse', '--verify', 'HEAD'])
+    return subprocess.check_output('git rev-parse --verify HEAD', shell=True, stderr=subprocess.STDOUT)
 
 @app.route("/git-remote")
 def remote():
-    return subprocess.check_output(['git', 'ls-remote', '-q', '|', 'grep', 'HEAD', '|', 'cut', '-c1-40'])
+    return subprocess.check_output('git ls-remote -q | grep HEAD | cut -c1-40', shell=True, stderr=subprocess.STDOUT))
 
 @app.route("/update")
 def update():
