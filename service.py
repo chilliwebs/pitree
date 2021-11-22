@@ -54,7 +54,7 @@ def worker():
 
 @app.route("/")
 def root():
-    return "v0.0.3 OK"
+    return "v0.0.4 OK"
 
 @app.route("/update")
 def update():
@@ -65,7 +65,7 @@ def update():
     return "RESTARTING"
 
 @app.route("/mode")
-def setMode(no):
+def setMode():
     no = request.args.get('no', default = None, type = int)
     if no != None:
         q.put(no)
