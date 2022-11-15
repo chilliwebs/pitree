@@ -188,9 +188,7 @@ def worker():
         try:
             global mode
             item = q.get(True, 1)
-            print(f'recived on {item}')
             mode = item
-            print(f'completed {item}')
             q.task_done()
         except queue.Empty:
             continue # nothing
