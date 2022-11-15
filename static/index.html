@@ -57,7 +57,7 @@
         }
     </style>
     <script>
-        var updateInterval = 30000;
+        window.updateIntervalTime = 30000;
         var colorIncrement = 0;
         var colors = {};
 
@@ -82,7 +82,9 @@
             fetch('/hasupdate').then((g) => g.text()).then((v) => {
                 if (v === "True") {
                     document.getElementById('update').style.display = 'inline';
+                    clearInterval(window.updateInterval);
                 }
+                window.updateIntervalTime = window.updateIntervalTime + 5000;
             });
         }
 
@@ -164,10 +166,9 @@
             });
 
             checkUpdates();
-            setInterval(() => {
+            window.updateInterval = setInterval(() => {
                 checkUpdates();
-                updateInterval = updateInterval + 5000;
-            }, updateInterval);
+            }, window.updateIntervalTime);
         }
     </script>
 </head>
