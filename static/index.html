@@ -153,9 +153,9 @@
 
             // <div id="colorControll0"></div>
 
-            document.getElementById('positionSlider0').addEventListener('change', function (event) {
-                document.getElementById('posIndicator0').style.left = (event.target.value-10)+'px';
-            }, false);
+            // document.getElementById('positionSlider0').addEventListener('change', function (event) {
+            //     document.getElementById('posIndicator0').style.left = (event.target.value-10)+'px';
+            // }, false);
 
             fetch('/ver').then(async (ver) => {
                 var version = await ver.text();
