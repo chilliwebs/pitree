@@ -18,6 +18,7 @@ strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRI
 strip.begin()
 mode = 0
 run = True
+needsupdate = False
 
 def wheel(pos):
     # Input a value 0 to 255 to get a color value.
@@ -182,13 +183,13 @@ def update_img():
 def ver():
     return '0.0.24'
 
-@app.route("/git")
-def git():
-    return subprocess.check_output('git -C /home/pi/pitree rev-parse --verify HEAD', shell=True, stderr=subprocess.STDOUT)
-
-@app.route("/git-remote")
-def remote():
-    return subprocess.check_output('git -C /home/pi/pitree ls-remote -q | grep HEAD | cut -c1-40', shell=True, stderr=subprocess.STDOUT)
+@app.route("/hasupdate")
+def hasupdate():
+    if not needsupdate:
+        localvers = subprocess.check_output('git -C /home/pi/pitree rev-parse --verify HEAD', shell=True, stderr=subprocess.STDOUT)
+        remote = subprocess.check_output('git -C /home/pi/pitree ls-remote -q | grep HEAD | cut -c1-40', shell=True, stderr=subprocess.STDOUT)
+        needsupdate = (localvers == remote)
+    return needsupdate
 
 @app.route("/update")
 def update():

@@ -78,11 +78,8 @@
         }
 
         function checkUpdates() {
-            Promise.all([
-                fetch('/git').then((g) => g.text()),
-                fetch('/git-remote').then((g) => g.text())
-            ]).then((v) => {
-                if (v.length == 2 && v[0] != v[1]) {
+            fetch('/hasupdate').then((g) => g.text()).then((v) => {
+                if (v === "true") {
                     document.getElementById('update').style.display = 'inline';
                 }
             });
