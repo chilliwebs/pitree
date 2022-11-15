@@ -84,7 +84,7 @@
                     document.getElementById('update').style.display = 'inline';
                     clearInterval(window.updateInterval);
                 } else {
-                    updateIntervalTime = updateIntervalTime + 5000;
+                    updateIntervalTime = Math.min(updateIntervalTime + 5000, 60000);
                     setTimeout(() => {
                         checkUpdates();
                     }, updateIntervalTime);
