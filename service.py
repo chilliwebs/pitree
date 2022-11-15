@@ -93,15 +93,13 @@ def tree():
         if mode == 3:
             for c in RGBYAV:
                 if mode != 3:
-                        break
-                for n in range(int(strip.numPixels()/8)):
-                    if mode != 3:
-                        break
-                    for i in range(0,12):
-                        strip.setPixelColor((n*12)+i, c)
+                    break
+                for i in range(strip.numPixels()):
+                    strip.setPixelColor(i, c)
+                    time.sleep(0.001)
 
-                    strip.show()
-                    time.sleep(0.05)
+                strip.show()
+                time.sleep(0.05)
 
         # Fanfare
         if mode == 4:
