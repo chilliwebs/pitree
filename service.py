@@ -97,7 +97,6 @@ def tree():
                 for i in range(strip.numPixels()):
                     strip.setPixelColor(i, c)
                     strip.show()
-                    time.sleep(0.001)
 
                 time.sleep(0.05)
 
