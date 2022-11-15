@@ -57,6 +57,7 @@
         }
     </style>
     <script>
+        var updateInterval = 30000;
         var colorIncrement = 0;
         var colors = {};
 
@@ -165,7 +166,8 @@
             checkUpdates();
             setInterval(() => {
                 checkUpdates();
-            }, 30000);
+                updateInterval = updateInterval + 5000;
+            }, updateInterval);
         }
     </script>
 </head>
