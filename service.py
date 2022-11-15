@@ -39,7 +39,6 @@ def wheel(pos):
         g = int(pos * 3)
         b = int(255 - pos * 3)
     return (r, g, b)
-    
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
@@ -108,7 +107,7 @@ def tree():
                             strip.setPixelColor((n*3)+2, c)
                     time.sleep(0.1)
                     strip.show()
-        
+
         if mode == 5:
             colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
             for c in colors:
@@ -193,10 +192,8 @@ def setMode():
     if no != None:
         global run
         while run:
-            try:
-                global mode
-                mode = no
-        # q.put(no)
+            global mode
+            mode = no
     return "OK"
 
 if __name__ == "__main__":
