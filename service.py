@@ -158,7 +158,7 @@ def tree():
 
         # Rainbow
         if mode == 6:
-            for j in range(0, strip.numPixels(), 2):
+            for j in range(0, strip.numPixels(), 10):
                 if mode != 6:
                     break
                 # for i in range(strip.numPixels()):
