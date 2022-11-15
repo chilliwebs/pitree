@@ -46,7 +46,7 @@ BRIGHT_WHITE = [Color(255, 255, 255)]
 WARM_WHITE = [Color(255, 175, 75)]
 RGBYAV = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
 RANDOM = [0] * LED_COUNT
-for i in xrange(0, LED_COUNT):
+for i in range(0, LED_COUNT):
     RANDOM[i] = Color(random.randint(0,255), random.randint(0,255), random.randint(0,255))
 RAINBOW = [0] * LED_COUNT
 for j in range(0, 255, 1):
