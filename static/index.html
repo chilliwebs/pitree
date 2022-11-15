@@ -89,19 +89,19 @@
         }
 
         window.onload = async function () {
-            // document.getElementById('update').onclick = function () {
-            //     fetch('/update').then((resp) => {
-            //         window.location.reload();
-            //     });
-            // }
+            document.getElementById('update').onclick = function () {
+                fetch('/update').then((resp) => {
+                    window.location.reload();
+                });
+            }
 
-            // for (var i = 0; i < 7; i++) {
-            //     (function (no) {
-            //         document.getElementById('mode' + no).addEventListener('click', function (event) {
-            //             fetch('/mode?no=' + no);
-            //         }, false);
-            //     })(i);
-            // }
+            for (var i = 0; i < 7; i++) {
+                (function (no) {
+                    document.getElementById('mode' + no).addEventListener('click', function (event) {
+                        fetch('/mode?no=' + no);
+                    }, false);
+                })(i);
+            }
 
             document.getElementById('addColor').addEventListener('click', function (event) {
                 var controll = document.createElement('div');
@@ -151,22 +151,22 @@
                 colorIncrement++;
             });
 
-            // <div id="colorControll0"></div>
+            <div id="colorControll0"></div>
 
             document.getElementById('positionSlider0').addEventListener('change', function (event) {
                 document.getElementById('posIndicator0').style.left = (event.target.value-10)+'px';
             }, false);
 
-            // fetch('/ver').then(async (ver) => {
-            //     var version = await ver.text();
-            //     document.getElementById('ver').innerText = version;
-            //     document.title = "PiTree v" + version;
-            // });
+            fetch('/ver').then(async (ver) => {
+                var version = await ver.text();
+                document.getElementById('ver').innerText = version;
+                document.title = "PiTree v" + version;
+            });
 
-            // checkUpdates();
-            // setInterval(() => {
-            //     checkUpdates();
-            // }, 30000);
+            checkUpdates();
+            setInterval(() => {
+                checkUpdates();
+            }, 30000);
         }
     </script>
 </head>
