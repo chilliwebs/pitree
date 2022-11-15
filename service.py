@@ -39,6 +39,7 @@ def wheel(pos):
         g = int(pos * 3)
         b = int(255 - pos * 3)
     return (r, g, b)
+    
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
@@ -107,7 +108,7 @@ def tree():
                             strip.setPixelColor((n*3)+2, c)
                     time.sleep(0.1)
                     strip.show()
-
+        
         if mode == 5:
             colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
             for c in colors:
@@ -145,18 +146,18 @@ def tree():
                 strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
             strip.show()
 
-# def worker():
-#     global run
-#     while run:
-#         try:
-#             global mode
-#             item = q.get(True, 1)
-#             print(f'recived on {item}')
-#             mode = item
-#             print(f'completed {item}')
-#             q.task_done()
-#         except queue.Empty:
-#             continue # nothing
+def worker():
+    global run
+    while run:
+        try:
+            global mode
+            item = q.get(True, 1)
+            print(f'recived on {item}')
+            mode = item
+            print(f'completed {item}')
+            q.task_done()
+        except queue.Empty:
+            continue # nothing
 
 @app.route("/")
 def index():
@@ -190,14 +191,11 @@ def update():
 def setMode():
     no = request.args.get('no', default = None, type = int)
     if no != None:
-        global run
-        while run:
-            global mode
-            mode = no
+        q.put(no)
     return "OK"
 
 if __name__ == "__main__":
-    # threading.Thread(target=worker, daemon=True).start()
+    threading.Thread(target=worker, daemon=True).start()
     threading.Thread(target=tree, daemon=True).start()
     q.put(0)
     app.run(host='0.0.0.0', port=8811)
