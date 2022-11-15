@@ -97,14 +97,8 @@ def tree():
                 for n in range(int(strip.numPixels()/8)):
                     if mode != 3:
                         break
-                    strip.setPixelColor(n*8, c)
-                    strip.setPixelColor((n*8)+1, c)
-                    strip.setPixelColor((n*8)+2, c)
-                    strip.setPixelColor((n*8)+3, c)
-                    strip.setPixelColor((n*8)+4, c)
-                    strip.setPixelColor((n*8)+5, c)
-                    strip.setPixelColor((n*8)+6, c)
-                    strip.setPixelColor((n*8)+7, c)
+                    for i in range(0,12):
+                        strip.setPixelColor(n*8+i, c)
 
                     strip.show()
                     time.sleep(0.05)
