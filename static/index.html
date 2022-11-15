@@ -84,12 +84,11 @@
                     document.getElementById('update').style.display = 'inline';
                     clearInterval(window.updateInterval);
                 } else {
-                    updateIntervalTime = Math.min(updateIntervalTime + 5000, 60000);
+                    updateIntervalTime = Math.min(updateIntervalTime + 5000, 30000);
                     setTimeout(() => {
                         checkUpdates();
                     }, updateIntervalTime);
-                }
-                
+                } 
             });
         }
 
