@@ -138,7 +138,7 @@ def tree():
                     time.sleep(0.1)
 
         if mode == 6:
-            for j in range(0, 255, 5):
+            for j in range(0, 255, 2):
                 if mode != 6:
                         break
                 for i in range(strip.numPixels()):
