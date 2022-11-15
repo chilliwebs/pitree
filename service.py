@@ -68,7 +68,7 @@ def tree():
         # Warm White
         if mode == 0:
             for i in range(strip.numPixels()):
-                strip.setPixelColor(i, Color(255, 175, 75))
+                strip.setPixelColor(i, WARM_WHITE[i])
 
             strip.show()
             time.sleep(1)
@@ -76,7 +76,7 @@ def tree():
         # Bright White
         if mode == 1:
             for i in range(strip.numPixels()):
-                strip.setPixelColor(i, Color(255, 255, 255))
+                strip.setPixelColor(i, BRIGHT_WHITE[i])
 
             strip.show()
             time.sleep(1)
@@ -84,15 +84,14 @@ def tree():
         # Random
         if mode == 2:
             for i in range(strip.numPixels()):
-                strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
+                strip.setPixelColor(i, RANDOM[random.randint(0,strip.numPixels()-1)])
 
             strip.show()
             time.sleep(1)
 
         # Wipe
         if mode == 3:
-            colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
-            for c in colors:
+            for c in RGBYAV:
                 if mode != 3:
                         break
                 for n in range(int(strip.numPixels()/4)):
@@ -108,8 +107,7 @@ def tree():
 
         # Fanfare
         if mode == 4:
-            colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
-            for c in colors:
+            for c in RGBYAV:
                 if mode != 4:
                         break
                 for r in range(11):
@@ -136,8 +134,7 @@ def tree():
 
         # Chase
         if mode == 5:
-            colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
-            for c in colors:
+            for c in RGBYAV:
                 if mode != 5:
                     break
                 for i in range(int(strip.numPixels()/4)):
@@ -161,13 +158,6 @@ def tree():
             for j in range(0, strip.numPixels(), 10):
                 if mode != 6:
                     break
-                # for i in range(strip.numPixels()):
-                #     if mode != 6:
-                #         break
-                #     pixel_index = (i * 256 // strip.numPixels()) + j*4
-                #     r, g, b = wheel(pixel_index & 255)
-                #     strip.setPixelColor(i, Color(r, g, b) )
-
                 for i in range(strip.numPixels()):
                     strip.setPixelColor(i, RAINBOW[(i+j)%strip.numPixels()] )
 
@@ -177,7 +167,7 @@ def tree():
         # Fast Random
         if mode == 7:
             for i in range(strip.numPixels()):
-                strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
+                strip.setPixelColor(i, RANDOM[random.randint(0,strip.numPixels()-1)])
 
             strip.show()
             time.sleep(0.05)
