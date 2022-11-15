@@ -157,10 +157,6 @@ def tree():
             time.sleep(0.025)
             strip.show()
 
-def show():
-    time.sleep(0.025)
-    strip.show()
-
 def worker():
     global run
     while run:
@@ -212,6 +208,5 @@ def setMode():
 if __name__ == "__main__":
     threading.Thread(target=worker, daemon=True).start()
     threading.Thread(target=tree, daemon=True).start()
-    threading.Thread(target=show, daemon=True).start()
     q.put(0)
     app.run(host='0.0.0.0', port=8811)
