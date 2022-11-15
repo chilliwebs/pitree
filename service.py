@@ -189,8 +189,8 @@ def hasupdate():
     if not needsupdate:
         localvers = subprocess.check_output('git -C /home/pi/pitree rev-parse --verify HEAD', shell=True, stderr=subprocess.STDOUT)
         remote = subprocess.check_output('git -C /home/pi/pitree ls-remote -q | grep HEAD | cut -c1-40', shell=True, stderr=subprocess.STDOUT)
-        needsupdate = str(localvers != remote)
-    return needsupdate
+        needsupdate = localvers != remote
+    return str(needsupdate)
 
 @app.route("/update")
 def update():
