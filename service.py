@@ -94,13 +94,17 @@ def tree():
             for c in RGBYAV:
                 if mode != 3:
                         break
-                for n in range(int(strip.numPixels()/4)):
+                for n in range(int(strip.numPixels()/8)):
                     if mode != 3:
                         break
-                    strip.setPixelColor(n*4, c)
-                    strip.setPixelColor((n*4)+1, c)
-                    strip.setPixelColor((n*4)+2, c)
-                    strip.setPixelColor((n*4)+3, c)
+                    strip.setPixelColor(n*8, c)
+                    strip.setPixelColor((n*8)+1, c)
+                    strip.setPixelColor((n*8)+2, c)
+                    strip.setPixelColor((n*8)+3, c)
+                    strip.setPixelColor((n*8)+4, c)
+                    strip.setPixelColor((n*8)+5, c)
+                    strip.setPixelColor((n*8)+6, c)
+                    strip.setPixelColor((n*8)+7, c)
 
                     strip.show()
                     time.sleep(0.05)
