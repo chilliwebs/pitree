@@ -169,7 +169,7 @@ def tree():
                 #     strip.setPixelColor(i, Color(r, g, b) )
 
                 for i in range(strip.numPixels()):
-                    strip.setPixelColor(i, RAINBOW[j] )
+                    strip.setPixelColor(i, RAINBOW[(i+j)%strip.numPixels()] )
 
                 strip.show()
                 time.sleep(0.05)
