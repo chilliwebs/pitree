@@ -91,7 +91,7 @@ def tree():
 
         # Wipe
         if mode == 3:
-            width = 16
+            width = 15
             for c in RGBYAV:
                 if mode != 3:
                     break
