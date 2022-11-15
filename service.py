@@ -86,7 +86,7 @@ def tree():
                     strip.setPixelColor((n*4)+2, c)
                     strip.setPixelColor((n*4)+3, c)
 
-                    time.sleep(0.025)
+                    time.sleep(0.1)
                     strip.show()
 
         if mode == 4:
@@ -113,7 +113,7 @@ def tree():
                             strip.setPixelColor((n*3)+1, Color(0, 0, 0))
                             strip.setPixelColor((n*3)+2, c)
 
-                    time.sleep(0.125)
+                    time.sleep(0.1)
                     strip.show()
         
         if mode == 5:
@@ -134,7 +134,7 @@ def tree():
                     strip.setPixelColor(((i+1)*4)+2, c)
                     strip.setPixelColor(((i+1)*4)+3, c)
 
-                    time.sleep(0.025)
+                    time.sleep(0.1)
                     strip.show()
 
         if mode == 6:
@@ -148,14 +148,14 @@ def tree():
                     r, g, b = wheel(pixel_index & 255)
                     strip.setPixelColor(i, Color(r, g, b) )
                 
-                time.sleep(0.025)
+                time.sleep(0.1)
                 strip.show()
 
         if mode == 7:
             for i in range(strip.numPixels()):
                 strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
 
-            time.sleep(0.025)
+            time.sleep(0.1)
             strip.show()
 
 def worker():
