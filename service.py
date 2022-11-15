@@ -181,7 +181,7 @@ def update_img():
 
 @app.route("/ver")
 def ver():
-    return '0.0.28'
+    return '0.0.29'
 
 @app.route("/hasupdate")
 def hasupdate():
