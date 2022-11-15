@@ -40,7 +40,20 @@ def wheel(pos):
         g = int(pos * 3)
         b = int(255 - pos * 3)
     return (r, g, b)
-    
+
+# Color Palates
+BRIGHT_WHITE = [Color(255, 255, 255)]
+WARM_WHITE = [Color(255, 175, 75)]
+RGBYAV = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
+RANDOM = [0] * LED_COUNT
+for i in xrange(0, LED_COUNT):
+    RANDOM[i] = Color(random.randint(0,255), random.randint(0,255), random.randint(0,255))
+RAINBOW = [0] * LED_COUNT
+for j in range(0, 255, 1):
+    for i in range(LED_COUNT):
+        pixel_index = (i * 256 // LED_COUNT) + j * 4
+        r, g, b = wheel(pixel_index & 255)
+        RANDOM[i] = Color(r, g, b)
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
@@ -52,6 +65,7 @@ def tree():
     global run
     while run:
         global mode
+        # Warm White
         if mode == 0:
             for i in range(strip.numPixels()):
                 strip.setPixelColor(i, Color(255, 175, 75))
@@ -59,13 +73,15 @@ def tree():
             strip.show()
             time.sleep(1)
 
+        # Bright White
         if mode == 1:
             for i in range(strip.numPixels()):
                 strip.setPixelColor(i, Color(255, 255, 255))
 
             strip.show()
             time.sleep(1)
-            
+
+        # Random
         if mode == 2:
             for i in range(strip.numPixels()):
                 strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
@@ -73,6 +89,7 @@ def tree():
             strip.show()
             time.sleep(1)
 
+        # Wipe
         if mode == 3:
             colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
             for c in colors:
@@ -89,6 +106,7 @@ def tree():
                     strip.show()
                     time.sleep(0.05)
 
+        # Fanfare
         if mode == 4:
             colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
             for c in colors:
@@ -115,7 +133,8 @@ def tree():
 
                     strip.show()
                     time.sleep(0.05)
-        
+
+        # Chase
         if mode == 5:
             colors = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
             for c in colors:
@@ -137,20 +156,25 @@ def tree():
                     strip.show()
                     time.sleep(0.05)
 
+        # Rainbow
         if mode == 6:
-            for j in range(0, 255, 2):
+            for j in range(0, strip.numPixels(), 2):
                 if mode != 6:
-                        break
+                    break
+                # for i in range(strip.numPixels()):
+                #     if mode != 6:
+                #         break
+                #     pixel_index = (i * 256 // strip.numPixels()) + j*4
+                #     r, g, b = wheel(pixel_index & 255)
+                #     strip.setPixelColor(i, Color(r, g, b) )
+
                 for i in range(strip.numPixels()):
-                    if mode != 6:
-                        break
-                    pixel_index = (i * 256 // strip.numPixels()) + j*4
-                    r, g, b = wheel(pixel_index & 255)
-                    strip.setPixelColor(i, Color(r, g, b) )
+                    strip.setPixelColor(i, RAINBOW[j] )
 
                 strip.show()
                 time.sleep(0.05)
 
+        # Fast Random
         if mode == 7:
             for i in range(strip.numPixels()):
                 strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
