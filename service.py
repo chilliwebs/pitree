@@ -146,18 +146,18 @@ def tree():
                 strip.setPixelColor(i, Color(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
             strip.show()
 
-def worker():
-    global run
-    while run:
-        try:
-            global mode
-            item = q.get(True, 1)
-            print(f'recived on {item}')
-            mode = item
-            print(f'completed {item}')
-            q.task_done()
-        except queue.Empty:
-            continue # nothing
+# def worker():
+#     global run
+#     while run:
+#         try:
+#             global mode
+#             item = q.get(True, 1)
+#             print(f'recived on {item}')
+#             mode = item
+#             print(f'completed {item}')
+#             q.task_done()
+#         except queue.Empty:
+#             continue # nothing
 
 @app.route("/")
 def index():
@@ -191,11 +191,16 @@ def update():
 def setMode():
     no = request.args.get('no', default = None, type = int)
     if no != None:
-        q.put(no)
+        global run
+        while run:
+            try:
+                global mode
+                mode = no
+        # q.put(no)
     return "OK"
 
 if __name__ == "__main__":
-    threading.Thread(target=worker, daemon=True).start()
+    # threading.Thread(target=worker, daemon=True).start()
     threading.Thread(target=tree, daemon=True).start()
     q.put(0)
     app.run(host='0.0.0.0', port=8811)

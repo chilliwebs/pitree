@@ -4,14 +4,79 @@
 <head>
     <title>PiTree</title>
     <style>
+        html,
+        body {
+            background-color: rgb(15, 56, 25);
+            color: #fff;
+        }
+
         #update {
             width: 2em;
             height: 2em;
             vertical-align: middle;
             cursor: pointer;
         }
+
+        #colorbar {
+            position: relative;
+            display: block;
+            width: 800px;
+            height: 50px;
+            border: 1px solid #fff;
+            margin: 5px;
+        }
+
+        .positionSlider,
+        #addColor,
+        .colorChooser {
+            height: 27px;
+            vertical-align: middle;
+        }
+
+        .positionSlider {
+            width: 800px;
+        }
+
+        button,
+        input {
+            background-color: #aaa;
+            border: 1px solid #999;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .posIndicator {
+            position: absolute;
+            display: block;
+            width: 16px;
+            height: 16px;
+            background:#ff0000;
+            clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+            top: -15px;
+            left: -10px;
+        }
     </style>
     <script>
+        var colorIncrement = 0;
+        var colors = {};
+
+        function updateColors() {
+            const sortedColors = new Array(...Object.entries(colors).sort((a, b) => a[1].pos - b[1].pos));
+            if(sortedColors.length == 1) {
+                sortedColors.push(sortedColors[0]);
+            }
+
+            console.log(sortedColors);
+
+            var cssGradient = "linear-gradient(to right, ";
+            cssGradient += sortedColors.map((c) => c[1].color + " " + Math.floor(c[1].pos / 8) + "%").join(", ")
+            cssGradient += ");";
+
+            console.log(cssGradient);
+
+            document.getElementById('colorbar').setAttribute("style", "background: "+cssGradient)
+        }
+
         function checkUpdates() {
             Promise.all([
                 fetch('/git').then((g) => g.text()),
@@ -24,27 +89,81 @@
         }
 
         window.onload = async function () {
-            document.getElementById('update').onclick = function () {
-                fetch('/update').then((resp) => {
-                    window.location.reload();
-                });
-            }
+            // document.getElementById('update').onclick = function () {
+            //     fetch('/update').then((resp) => {
+            //         window.location.reload();
+            //     });
+            // }
 
-            for (var i = 0; i < 7; i++) {
-                (function (no) {
-                    document.getElementById('mode' + no).addEventListener('click', function (event) {
-                        fetch('/mode?no=' + no);
+            // for (var i = 0; i < 7; i++) {
+            //     (function (no) {
+            //         document.getElementById('mode' + no).addEventListener('click', function (event) {
+            //             fetch('/mode?no=' + no);
+            //         }, false);
+            //     })(i);
+            // }
+
+            document.getElementById('addColor').addEventListener('click', function (event) {
+                var controll = document.createElement('div');
+                controll.setAttribute('id', 'colorControll'+colorIncrement);
+
+                var slider = document.createElement('input');
+                slider.setAttribute('type', 'range');
+                slider.setAttribute('min', '0');
+                slider.setAttribute('max', '800');
+                slider.setAttribute('value', '0');
+                slider.setAttribute('class', 'positionSlider');
+                slider.setAttribute('id', 'positionSlider'+colorIncrement);
+                controll.append(slider);
+
+                var colorchooser = document.createElement('input');
+                colorchooser.setAttribute('type', 'color');
+                colorchooser.setAttribute('value', '#ff0000');
+                colorchooser.setAttribute('class', 'colorChooser');
+                colorchooser.setAttribute('id', 'colorChooser'+colorIncrement);
+                controll.append(colorchooser);
+
+                document.getElementById('colorControlls').append(controll);
+
+                var indicator = document.createElement('div');
+                indicator.setAttribute('id', 'posIndicator'+colorIncrement);
+                indicator.setAttribute('class', 'posIndicator');
+                document.getElementById('colorbar').append(indicator);
+
+                (function (n) {
+                    slider.addEventListener('change', function (event) {
+                        indicator.style.left = (event.target.value-10)+'px';
+                        colors[n].pos = event.target.value;
+                        updateColors();
                     }, false);
-                })(i);
-            }
+                })(colorIncrement);
 
-            fetch('/ver').then(async (ver) => {
-                var version = await ver.text();
-                document.getElementById('ver').innerText = version;
-                document.title = "PiTree v" + version;
+                (function (n) {
+                    colorchooser.addEventListener('change', function (event) {
+                        indicator.style.background = event.target.value;
+                        colors[n].color = event.target.value;
+                        updateColors();
+                    }, false);
+                })(colorIncrement);
+
+                colors[colorIncrement] = {"color":"#ff0000", "pos":0};
+
+                colorIncrement++;
             });
 
-            checkUpdates();
+            // <div id="colorControll0"></div>
+
+            document.getElementById('positionSlider0').addEventListener('change', function (event) {
+                document.getElementById('posIndicator0').style.left = (event.target.value-10)+'px';
+            }, false);
+
+            // fetch('/ver').then(async (ver) => {
+            //     var version = await ver.text();
+            //     document.getElementById('ver').innerText = version;
+            //     document.title = "PiTree v" + version;
+            // });
+
+            // checkUpdates();
             // setInterval(() => {
             //     checkUpdates();
             // }, 30000);
@@ -55,14 +174,26 @@
 <body>
     <h3>PiTree v<span id="ver">...</span> <img id="update" title="updates avalible" style="display: none;"
             src="update.png" /></h3>
-    <div>Modes:</div>
+    <br />
+    <div>Pallets:</div>
     <button id="mode0">Warm</button>
     <button id="mode1">White</button>
     <button id="mode2">Random</button>
-    <button id="mode3">wipe</button>
-    <button id="mode4">fanfare</button>
-    <button id="mode5">chase</button>
-    <button id="mode6">rainbow</button>
+    <button id="mode6">Rainbow</button>
+    <br /><br />
+    <div>Style:</div>
+    <br /><br />
+    <div>Mode:</div>
+    <button id="mode3">Wipe</button>
+    <button id="mode4">Fanfare</button>
+    <button id="mode5">Chase</button>
+    <br /><br />
+    <div>Custom Pallet:</div>
+    <br />
+    <div id="colorbar" style="background: #fff;"></div>
+    <div id="colorControlls"></div>
+    <button id="addColor">Add Color</button>
+    <div id="colorinfo"></div>
 </body>
 
 </html>
