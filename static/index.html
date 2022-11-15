@@ -101,7 +101,7 @@
                 });
             }
 
-            for (var i = 0; i < 7; i++) {
+            for (var i = 0; i < 8; i++) {
                 (function (no) {
                     document.getElementById('mode' + no).addEventListener('click', function (event) {
                         fetch('/mode?no=' + no);
@@ -190,6 +190,7 @@
     <button id="mode3">Wipe</button>
     <button id="mode4">Fanfare</button>
     <button id="mode5">Chase</button>
+    <button id="mode7">Random Fast</button>
     <br /><br />
     <div>Custom Pallet:</div>
     <br />
