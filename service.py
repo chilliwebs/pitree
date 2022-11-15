@@ -68,7 +68,7 @@ def tree():
         # Warm White
         if mode == 0:
             for i in range(strip.numPixels()):
-                strip.setPixelColor(i, WARM_WHITE[i])
+                strip.setPixelColor(i, WARM_WHITE[i%1])
 
             strip.show()
             time.sleep(1)
@@ -76,7 +76,7 @@ def tree():
         # Bright White
         if mode == 1:
             for i in range(strip.numPixels()):
-                strip.setPixelColor(i, BRIGHT_WHITE[i])
+                strip.setPixelColor(i, BRIGHT_WHITE[i%1])
 
             strip.show()
             time.sleep(1)
