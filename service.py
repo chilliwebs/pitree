@@ -191,17 +191,9 @@ def index():
 def update_img():
     return current_app.send_static_file('update.png')
 
-@app.route("/bg1.jpg")
-def bg1_img():
-    return current_app.send_static_file('bg1.jpg')
-
-@app.route("/bg2.jpg")
-def bg2_img():
-    return current_app.send_static_file('bg2.jpg')
-
-@app.route("/bg3.jpg")
-def bg3_img():
-    return current_app.send_static_file('bg3.jpg')
+@app.route("/bg.jpg")
+def bg_img():
+    return current_app.send_static_file('bg.jpg')
 
 @app.route("/ver")
 def ver():
