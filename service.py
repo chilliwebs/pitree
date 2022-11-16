@@ -48,16 +48,16 @@ BRIGHT_WHITE = [Color(255, 255, 255)]
 WARM_WHITE = [Color(255, 175, 75)]
 RGBYAV = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
 
-RANDOM = [0] * LED_COUNT
+RANDOM = [Color(0, 0, 0)] * LED_COUNT
 for i in range(0, LED_COUNT):
     RANDOM[i] = Color(random.randint(0,255), random.randint(0,255), random.randint(0,255))
 
-RAINBOW = [[0]] * LED_COUNT
+RAINBOW = [[Color(0, 0, 0)]] * LED_COUNT
 for j in range(0, 255, 1):
     for i in range(LED_COUNT):
         pixel_index = (i * 256 // LED_COUNT) + j * 4
         r, g, b = wheel(pixel_index & 255)
-        RAINBOW[i][0] = Color(r, g, b)
+        RAINBOW[i] = [Color(r, g, b)]
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
