@@ -57,7 +57,7 @@ for j in range(0, 255, 1):
     for i in range(LED_COUNT):
         pixel_index = (i * 256 // LED_COUNT) + j * 4
         r, g, b = wheel(pixel_index & 255)
-        RAINBOW[i][1] = Color(r, g, b)
+        RAINBOW[i][0] = Color(r, g, b)
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
