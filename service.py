@@ -76,7 +76,7 @@ def tree():
         t = time.time()
         y = 0
         for x in range(LED_COUNT):
-            BUFF[x] = RAINBOW[x + int((t * 60) % 750)][y]
+            BUFF[x] = RAINBOW[(x + int((t * 60) % 750)) % 750][y]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
