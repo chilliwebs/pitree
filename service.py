@@ -1,6 +1,8 @@
 import threading, queue, time, random, os, subprocess
 from rpi_ws281x import Color, PixelStrip, ws
 from flask import Flask, request, current_app
+import sympy as sp
+import numpy as np
 
 # LED strip configuration:
 LED_COUNT = 750        # Number of LED pixels.
@@ -45,15 +47,17 @@ def wheel(pos):
 BRIGHT_WHITE = [Color(255, 255, 255)]
 WARM_WHITE = [Color(255, 175, 75)]
 RGBYAV = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
+
 RANDOM = [0] * LED_COUNT
 for i in range(0, LED_COUNT):
     RANDOM[i] = Color(random.randint(0,255), random.randint(0,255), random.randint(0,255))
-RAINBOW = [0] * LED_COUNT
+
+RAINBOW = [[0]] * LED_COUNT
 for j in range(0, 255, 1):
     for i in range(LED_COUNT):
         pixel_index = (i * 256 // LED_COUNT) + j * 4
         r, g, b = wheel(pixel_index & 255)
-        RAINBOW[i] = Color(r, g, b)
+        RAINBOW[i][1] = Color(r, g, b)
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
@@ -61,116 +65,132 @@ def shutdown_server():
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
 
+# led buffer
+BUFF = [Color(0, 0, 0)] * LED_COUNT
+
 def tree():
     global run
     while run:
         global mode
-        # Warm White
-        if mode == 0:
-            for i in range(strip.numPixels()):
-                strip.setPixelColor(i, WARM_WHITE[i%1])
 
-            strip.show()
-            time.sleep(1)
+        t = time()
+        y = 0
+        for x in range(LED_COUNT):
+            BUFF[x] = RAINBOW[x + int((t * 60) % 750)][y]
 
-        # Bright White
-        if mode == 1:
-            for i in range(strip.numPixels()):
-                strip.setPixelColor(i, BRIGHT_WHITE[i%1])
+        for i in range(LED_COUNT):
+            strip.setPixelColor(i, BUFF[i])
+        
+        strip.show()
+        time.sleep(0.05)
 
-            strip.show()
-            time.sleep(1)
+        # # Warm White
+        # if mode == 0:
+        #     for i in range(strip.numPixels()):
+        #         strip.setPixelColor(i, WARM_WHITE[i%1])
 
-        # Random
-        if mode == 2:
-            for i in range(strip.numPixels()):
-                strip.setPixelColor(i, RANDOM[random.randint(0,strip.numPixels()-1)])
+        #     strip.show()
+        #     time.sleep(1)
 
-            strip.show()
-            time.sleep(1)
+        # # Bright White
+        # if mode == 1:
+        #     for i in range(strip.numPixels()):
+        #         strip.setPixelColor(i, BRIGHT_WHITE[i%1])
 
-        # Wipe
-        if mode == 3:
-            width = 15
-            for c in RGBYAV:
-                if mode != 3:
-                    break
-                for n in range(int(strip.numPixels()/width)+1):
-                    if mode != 3:
-                        break
-                    for i in range(0,width):
-                        if ((n*width)+i) < strip.numPixels():
-                            strip.setPixelColor((n*width)+i, c)
+        #     strip.show()
+        #     time.sleep(1)
 
-                    strip.show()
-                    time.sleep(0.05)
+        # # Random
+        # if mode == 2:
+        #     for i in range(strip.numPixels()):
+        #         strip.setPixelColor(i, RANDOM[random.randint(0,strip.numPixels()-1)])
 
-        # Fanfare
-        if mode == 4:
-            for c in RGBYAV:
-                if mode != 4:
-                        break
-                for r in range(11):
-                    if mode != 4:
-                            break
-                    for n in range(int(strip.numPixels()/3)):
-                        if mode != 4:
-                            break
-                        if (r % 3) == 0:
-                            strip.setPixelColor(n*3, c)
-                            strip.setPixelColor((n*3)+1, Color(0, 0, 0))
-                            strip.setPixelColor((n*3)+2, Color(0, 0, 0))
-                        if (r % 3) == 1:
-                            strip.setPixelColor(n*3, Color(0, 0, 0))
-                            strip.setPixelColor((n*3)+1, c)
-                            strip.setPixelColor((n*3)+2, Color(0, 0, 0))
-                        if (r % 3) == 2:
-                            strip.setPixelColor(n*3, Color(0, 0, 0))
-                            strip.setPixelColor((n*3)+1, Color(0, 0, 0))
-                            strip.setPixelColor((n*3)+2, c)
+        #     strip.show()
+        #     time.sleep(1)
 
-                    strip.show()
-                    time.sleep(0.05)
+        # # Wipe
+        # if mode == 3:
+        #     width = 15
+        #     for c in RGBYAV:
+        #         if mode != 3:
+        #             break
+        #         for n in range(int(strip.numPixels()/width)+1):
+        #             if mode != 3:
+        #                 break
+        #             for i in range(0,width):
+        #                 if ((n*width)+i) < strip.numPixels():
+        #                     strip.setPixelColor((n*width)+i, c)
 
-        # Chase
-        if mode == 5:
-            for c in RGBYAV:
-                if mode != 5:
-                    break
-                for i in range(int(strip.numPixels()/4)):
-                    if mode != 5:
-                        break
-                    strip.setPixelColor((i*4), Color(0, 0, 0))
-                    strip.setPixelColor((i*4)+1, Color(0, 0, 0))
-                    strip.setPixelColor((i*4)+2, Color(0, 0, 0))
-                    strip.setPixelColor((i*4)+3, Color(0, 0, 0))
+        #             strip.show()
+        #             time.sleep(0.05)
 
-                    strip.setPixelColor(((i+1)*4), c)
-                    strip.setPixelColor(((i+1)*4)+1, c)
-                    strip.setPixelColor(((i+1)*4)+2, c)
-                    strip.setPixelColor(((i+1)*4)+3, c)
+        # # Fanfare
+        # if mode == 4:
+        #     for c in RGBYAV:
+        #         if mode != 4:
+        #                 break
+        #         for r in range(11):
+        #             if mode != 4:
+        #                     break
+        #             for n in range(int(strip.numPixels()/3)):
+        #                 if mode != 4:
+        #                     break
+        #                 if (r % 3) == 0:
+        #                     strip.setPixelColor(n*3, c)
+        #                     strip.setPixelColor((n*3)+1, Color(0, 0, 0))
+        #                     strip.setPixelColor((n*3)+2, Color(0, 0, 0))
+        #                 if (r % 3) == 1:
+        #                     strip.setPixelColor(n*3, Color(0, 0, 0))
+        #                     strip.setPixelColor((n*3)+1, c)
+        #                     strip.setPixelColor((n*3)+2, Color(0, 0, 0))
+        #                 if (r % 3) == 2:
+        #                     strip.setPixelColor(n*3, Color(0, 0, 0))
+        #                     strip.setPixelColor((n*3)+1, Color(0, 0, 0))
+        #                     strip.setPixelColor((n*3)+2, c)
 
-                    strip.show()
-                    time.sleep(0.05)
+        #             strip.show()
+        #             time.sleep(0.05)
 
-        # Rainbow
-        if mode == 6:
-            for j in range(0, strip.numPixels(), 10):
-                if mode != 6:
-                    break
-                for i in range(strip.numPixels()):
-                    strip.setPixelColor(i, RAINBOW[(i+j)%strip.numPixels()] )
+        # # Chase
+        # if mode == 5:
+        #     for c in RGBYAV:
+        #         if mode != 5:
+        #             break
+        #         for i in range(int(strip.numPixels()/4)):
+        #             if mode != 5:
+        #                 break
+        #             strip.setPixelColor((i*4), Color(0, 0, 0))
+        #             strip.setPixelColor((i*4)+1, Color(0, 0, 0))
+        #             strip.setPixelColor((i*4)+2, Color(0, 0, 0))
+        #             strip.setPixelColor((i*4)+3, Color(0, 0, 0))
 
-                strip.show()
-                time.sleep(0.05)
+        #             strip.setPixelColor(((i+1)*4), c)
+        #             strip.setPixelColor(((i+1)*4)+1, c)
+        #             strip.setPixelColor(((i+1)*4)+2, c)
+        #             strip.setPixelColor(((i+1)*4)+3, c)
 
-        # Fast Random
-        if mode == 7:
-            for i in range(strip.numPixels()):
-                strip.setPixelColor(i, RANDOM[random.randint(0,strip.numPixels()-1)])
+        #             strip.show()
+        #             time.sleep(0.05)
 
-            strip.show()
-            time.sleep(0.05)
+        # # Rainbow
+        # if mode == 6:
+        #     for j in range(0, strip.numPixels(), 10):
+        #         if mode != 6:
+        #             break
+        #         for i in range(strip.numPixels()):
+        #             strip.setPixelColor(i, RAINBOW[(i+j)%strip.numPixels()] )
+
+        #         strip.show()
+        #         time.sleep(0.05)
+
+        # # Fast Random
+        # if mode == 7:
+        #     for i in range(strip.numPixels()):
+        #         strip.setPixelColor(i, RANDOM[random.randint(0,strip.numPixels()-1)])
+
+        #    strip.show()
+        #    time.sleep(0.05)
+            
 
 def worker():
     global run
