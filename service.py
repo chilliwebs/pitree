@@ -73,7 +73,7 @@ def tree():
     while run:
         global mode
 
-        t = time()
+        t = time.time()
         y = 0
         for x in range(LED_COUNT):
             BUFF[x] = RAINBOW[x + int((t * 60) % 750)][y]
