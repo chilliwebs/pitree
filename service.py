@@ -72,6 +72,9 @@ AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
 
+expr = "(x + (t * s)) % l"
+fx = int(eval('lambda: ' + expr))
+
 def tree():
     global run
     while run:
@@ -87,8 +90,7 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
         for x in range(LED_COUNT):
-            fx = int(eval("(x + (t * s)) % l"))
-            BUFF[x] = current_palate[fx][y]
+            BUFF[x] = current_palate[fx(x)][y]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
