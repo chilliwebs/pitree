@@ -90,10 +90,7 @@ def tree():
         l = len(current_palate) # length
 
         expr = sp.sympify("(x + (t * s)) % l").subs('t', t).subs('s', s).subs('l', l)
-        
-        print(expr)
         xv = sp.lambdify('x', expr, "numpy")(led_seq)
-        print(xv)
 
         for x in range(LED_COUNT):
            BUFF[x] = current_palate[int(xv[x])][y]
