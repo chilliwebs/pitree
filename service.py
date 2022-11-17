@@ -85,10 +85,10 @@ def build_expr(x_expr, y_expr):
         if name not in allowed_globals and name not in allowed_locals:
             raise NameError(f"Use of {name} not allowed")
 
-def eval_expr(t, s, l):
+def eval_expr(t, s, l, c):
     global EXPR
     if EXPR:
-        return eval(EXPR, {"__builtins__": {}, "t": t, "s": s, "l": l, "c": LED_COUNT}, allowed_locals)
+        return eval(EXPR, {"__builtins__": {}, "t": t, "s": s, "l": l, "c": c}, allowed_locals)
     else:
         return [[0,0] for i in range(LED_COUNT)]
 
@@ -105,7 +105,8 @@ def tree():
         t = time.time() # time
         s = SPEED
         l = len(current_palate)
-        f = eval_expr(t, s, l)
+        c = LED_COUNT
+        f = eval_expr(t, s, l, c)
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, current_palate[int(f[i][0])%l][int(f[i][1])%l])
