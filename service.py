@@ -227,6 +227,10 @@ def worker():
                 x_expr = "(i + (t * s * l)) / c"
                 y_expr = "25 * sin((i/4) + (t * s)) - 24"
                 build_expr(x_expr, y_expr)
+            if item == 58: # race
+                x_expr = "(i + (t * s * l)) / c"
+                y_expr = "200 * sin((i/20) + (t * s)) - 199"
+                build_expr(x_expr, y_expr)
 
 
             if item == 100: # 1/4
