@@ -88,7 +88,7 @@ def eval_expr(t, s, l):
     global EXPR
     if EXPR:
         return eval(EXPR, {"__builtins__": {}, "t": t, "s": s, "l": l}, allowed_locals)
-    else
+    else:
         return [[0] for i in range(l)]
 
 def tree():
