@@ -92,10 +92,11 @@ def tree():
         l = len(current_palate) # length
 
         expr = EXPR.subs('t', t).subs('s', s).subs('l', l)
-        fx = sp.lambdify('x', expr, "numpy")(led_seq)
+        #fx = sp.lambdify('x', expr, "numpy")(led_seq)
 
         for i in range(LED_COUNT):
-            strip.setPixelColor(i, current_palate[int(fx[i])][y])
+            strip.setPixelColor(i, current_palate[int(expr.evalf(subs={'x': i}))])
+            #strip.setPixelColor(i, current_palate[int(fx[i])][y])
         
         strip.show()
         slp = max(0.05-(time.time()-t), 0)
