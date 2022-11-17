@@ -227,7 +227,7 @@ def ver():
 @app.route("/AVG_SLEEP")
 def avg_slp():
     global AVG_SLEEP
-    return AVG_SLEEP
+    return str(AVG_SLEEP)
 
 @app.route("/hasupdate")
 def hasupdate():
