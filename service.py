@@ -71,19 +71,25 @@ AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
 FPS = 1/15
+EXPR = False
 
 allowed_globals = {"t": 0, "s": 0, "l": 0}
 allowed_locals = {"range": range}
 
-x_expr = "((i if i % 2 == 0 else -2*i) + (t * s)) % l"
-#x_expr = "((t * s)) % l"
-y_expr = "i * 0"
+def build_expr(x_expr, y_expr):
+    global EXPR
+    expr = "[[(%s), (%s)] for i in range(750)]" % (x_expr, y_expr)
+    EXPR = compile(expr, '<string>', 'eval')
+    for name in comp.co_names:
+        if name not in allowed_globals and name not in allowed_locals:
+            raise NameError(f"Use of {name} not allowed")
 
-expr = "[[(%s), (%s)] for i in range(750)]" % (x_expr, y_expr)
-comp = compile(expr, '<string>', 'eval')
-for name in comp.co_names:
-    if name not in allowed_globals and name not in allowed_locals:
-        raise NameError(f"Use of {name} not allowed")
+def eval_expr(t, s, l):
+    global EXPR
+    if EXPR:
+        return eval(EXPR, {"__builtins__": {}, "t": t, "s": s, "l": l}, allowed_locals)
+    else
+        return [[0] for i in range(l)]
 
 def tree():
     global run
@@ -96,17 +102,10 @@ def tree():
         current_palate = PALATE
 
         t = time.time() # time
-        y = 0           # y
-        s = SPEED       # speed
-        l = len(current_palate) # length
-
-        f = eval(comp, {"__builtins__": {}, "t": t, "s": s, "l": l}, allowed_locals)
+        f = eval_expr(t, SPEED, len(current_palate))
 
         for i in range(LED_COUNT):
-            BUFF[i] = current_palate[int(f[i][0])][int(f[i][1])]
-
-        for i in range(LED_COUNT):
-            strip.setPixelColor(i, BUFF[i])
+            strip.setPixelColor(i, current_palate[int(f[i][0])][int(f[i][1])])
         
         strip.show()
         slp = max(FPS-(time.time()-t), 0)
@@ -245,6 +244,11 @@ def worker():
             if item == 6:
                 PALATE = RAINBOW
                 SPEED = 120
+
+            x_expr = "((i if i % 2 == 0 else -2*i) + (t * s)) % l"
+            #x_expr = "((t * s)) % l"
+            y_expr = "i * 0"
+            build_expr(x_expr, y_expr)
 
             q.task_done()
         except queue.Empty:
