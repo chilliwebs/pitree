@@ -46,7 +46,7 @@ def wheel(pos):
 # Color Palates
 BRIGHT_WHITE = [[Color(255, 255, 255)]]
 WARM_WHITE = [[Color(255, 175, 75)]]
-RGBYAV = [[Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]]
+RGBYAV = [[Color(255, 0, 0)], [Color(0, 255, 0)], [Color(0, 0, 255)], [Color(255, 255, 0)], [Color(0, 255, 255)], [Color(255, 0, 255)]]
 
 RANDOM = [[Color(0, 0, 0)]] * LED_COUNT
 for i in range(0, LED_COUNT):
@@ -78,11 +78,12 @@ def tree():
 
         PALATE = RGBYAV
 
-        t = time.time()
-        y = 0
-        s = len(PALATE)
+        t = time.time() # time
+        y = 0           # y
+        s = 120         # speed
+        l = len(PALATE) # length
         for x in range(LED_COUNT):
-            BUFF[x] = PALATE[(x + int((t * 120) % s)) % s][y]
+            BUFF[x] = PALATE[(x + int((t * s) % l)) % l][y]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
