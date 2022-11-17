@@ -229,30 +229,38 @@ def worker():
         try:
             global PALATE
             global SPEED
-            # global mode
             item = q.get(True, 1)
-            # mode = item
             if item == 0:
                 PALATE = WARM_WHITE
-                SPEED = 1
             if item == 1:
                 PALATE = BRIGHT_WHITE
-                SPEED = 1
             if item == 2:
                 PALATE = RANDOM
-                SPEED = 1
             if item == 3:
                 PALATE = RGBYAV
-                SPEED = 1
-            if item == 6:
+            if item == 4:
                 PALATE = RAINBOW
-                SPEED = 120
 
-            #x_expr = "((i if i % 2 == 0 else -2*i) + (t * s)) % l"
-            x_expr = "(i + (t * s)) % l"
-            #x_expr = "((t * s)) % l"
-            y_expr = "i * 0"
-            build_expr(x_expr, y_expr)
+            if item == 5:
+                SPEED = 1
+                x_expr = "((t * s)) % l"
+                y_expr = "i * 0"
+                build_expr(x_expr, y_expr)
+            if item == 6:
+                SPEED = 1
+                x_expr = "(i + (t * s)) % l"
+                y_expr = "i * 0"
+                build_expr(x_expr, y_expr)
+            if item == 7:
+                SPEED = 120
+                x_expr = "(i + (t * s)) % l"
+                y_expr = "i * 0"
+                build_expr(x_expr, y_expr)
+            if item == 8:
+                SPEED = 120
+                x_expr = "((i if i % 2 == 0 else -2*i) + (t * s)) % l"
+                y_expr = "i * 0"
+                build_expr(x_expr, y_expr)
 
             q.task_done()
         except queue.Empty:
