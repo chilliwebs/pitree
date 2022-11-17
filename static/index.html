@@ -106,12 +106,14 @@
                 });
             }
 
-            for (var i = 0; i < 13; i++) {
-                (function (no) {
-                    document.getElementById('mode' + no).addEventListener('click', function (event) {
-                        fetch('/mode?no=' + no);
-                    }, false);
-                })(i);
+            for (var btn of btns) {
+                if(btn.id.indexOf('mode') == 0) {
+                    (function (b) {
+                        b.addEventListener('click', function (event) {
+                            fetch('/mode?no=' + b.id.replace('mode',''));
+                        }, false);
+                    })(btn);
+                }
             }
 
             document.getElementById('addColor').addEventListener('click', function (event) {
@@ -201,6 +203,14 @@
     <button id="mode10">Ungulate (slow)</button>
     <button id="mode11">Ungulate (fast)</button>
     <button id="mode12">Wipe</button>
+    <br /><br />
+    <div>Speed:</div>
+    <button id="mode15">One (1)</button>
+    <button id="mode16">Slow (30)</button>
+    <button id="mode17">Medium (60)</button>
+    <button id="mode18">Fast (120)</button>
+    <button id="mode19">Very Fast (240)</button>
+    <button id="mode20">FullSpeed (750)</button>
     <!-- <button id="mode8">Wipe</button>
     <button id="mode6">Fanfare</button>
     <button id="mode9">Chase</button>
