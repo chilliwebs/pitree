@@ -103,7 +103,7 @@ def tree():
             strip.setPixelColor(i, BUFF[i])
         
         strip.show()
-        slp = max(0.05-(time.time()-t), 0)
+        slp = max(0.10-(time.time()-t), 0)
         AVG_SLEEP = (AVG_SLEEP + slp)/2.0
         time.sleep(slp)
 
