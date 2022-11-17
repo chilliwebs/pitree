@@ -73,7 +73,7 @@ SPEED = 1
 
 expr = "(x + (t * s)) % l"
 compiled = compile(expr, '<string>', 'eval')
-allowed_names = {"x": "x", "t": "t", "s": "s", "l": "l", "sum": sum}
+allowed_names = {"x": 0, "t": 0, "s": 0, "l": 0, "sum": sum}
 for name in compiled.co_names:
     if name not in allowed_names:
         raise NameError(f"Use of {name} not allowed")
@@ -94,7 +94,7 @@ def tree():
         l = len(current_palate) # length
 
         for x in range(LED_COUNT):
-            fx = eval(compiled, globals={"__builtins__": {}}, locals={"t": t, "s": s, "l": l})
+            fx = eval(compiled, {"__builtins__": {}}, {"t": t, "s": s, "l": l})
             BUFF[x] = current_palate[int(fx)][y]
 
         for i in range(LED_COUNT):
