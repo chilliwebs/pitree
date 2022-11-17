@@ -81,6 +81,7 @@ def tree():
         t = time.time() # time
         y = 0           # y
         s = 120         # speed
+        s = 1
         l = len(PALATE) # length
         for x in range(LED_COUNT):
             BUFF[x] = PALATE[(x + int((t * s) % l)) % l][y]
