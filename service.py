@@ -89,17 +89,17 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
 
-        # expr = sp.sympify("(x + (t * s)) % l")
-        # expr.subs('t', t)
-        # expr.subs('s', s)
-        # expr.subs('l', l)
-        # buff = sp.lambdify('x', expr, "numpy")(led_seq)
+        expr = sp.sympify("(x + (t * s)) % l")
+        expr.subs('t', t)
+        expr.subs('s', s)
+        expr.subs('l', l)
+        buff = sp.lambdify('x', expr, "numpy")(led_seq)
 
-        for x in range(LED_COUNT):
-           BUFF[x] = current_palate[int((x + (t * s)) % l) % l][y]
+        # for x in range(LED_COUNT):
+        #    BUFF[x] = current_palate[int((x + (t * s)) % l) % l][y]
 
         for i in range(LED_COUNT):
-            strip.setPixelColor(i, BUFF[i])
+            strip.setPixelColor(i, buff[i])
         
         strip.show()
         slp = max(0.05-(time.time()-t), 0)
