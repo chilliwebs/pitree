@@ -78,6 +78,7 @@ allowed_locals = {"range": range}
 
 def build_expr(x_expr, y_expr):
     global EXPR
+    EXPR = False
     expr_str = "[[(%s), (%s)] for i in range(750)]" % (x_expr, y_expr)
     EXPR = compile(expr_str, '<string>', 'eval')
     for name in EXPR.co_names:
