@@ -232,8 +232,10 @@ def worker():
             item = q.get(True, 1)
             if item == 0:
                 PALATE = WARM_WHITE
+                item = 5
             if item == 1:
                 PALATE = BRIGHT_WHITE
+                item = 5
             if item == 2:
                 PALATE = RANDOM
             if item == 3:
