@@ -220,7 +220,7 @@ def worker():
                 y_expr = "sin(i - (t * s))"
                 build_expr(x_expr, y_expr)
             if item == 56: # chase
-                x_expr = "(i + (t * s)) / c"
+                x_expr = "(i + (t * s * c)) / c"
                 y_expr = "50 * sin(i + (t * s)) - 49"
                 build_expr(x_expr, y_expr)
 
