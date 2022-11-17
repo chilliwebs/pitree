@@ -1,8 +1,8 @@
 import threading, queue, time, random, os, subprocess
 from rpi_ws281x import Color, PixelStrip, ws
 from flask import Flask, request, current_app
-#import sympy as sp
-#import numpy as np
+import sympy as sp
+import numpy as np
 
 # LED strip configuration:
 LED_COUNT = 750        # Number of LED pixels.
@@ -99,7 +99,7 @@ def tree():
            BUFF[x] = current_palate[int((x + (t * s)) % l) % l][y]
 
         for i in range(LED_COUNT):
-            strip.setPixelColor(i, buff[i])
+            strip.setPixelColor(i, BUFF[i])
         
         strip.show()
         slp = max(0.05-(time.time()-t), 0)
