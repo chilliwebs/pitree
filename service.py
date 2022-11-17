@@ -1,4 +1,4 @@
-import threading, queue, time, random, os, subprocess
+import threading, queue, time, random, os, subprocess, math
 from rpi_ws281x import Color, PixelStrip, ws
 from flask import Flask, request, current_app
 import compiler
@@ -74,7 +74,7 @@ FPS = 1/15
 EXPR = False
 
 allowed_globals = {"t": 0, "s": 0, "l": 0, "c": 0}
-allowed_locals = {"range": range}
+allowed_locals = {"range": range, "sin", math.sin}
 
 def build_expr(x_expr, y_expr):
     global EXPR
