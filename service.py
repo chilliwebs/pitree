@@ -71,6 +71,7 @@ BUFF = [Color(0, 0, 0)] * LED_COUNT
 AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
+EXPR = sp.sympify("(x + (t * s)) % l")
 
 led_seq = np.linspace(1, 750, 750)
 
@@ -81,6 +82,7 @@ def tree():
         global AVG_SLEEP
         global PALATE
         global SPEED
+        global EXPR
 
         current_palate = PALATE
 
@@ -89,7 +91,7 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
 
-        expr = sp.sympify("(x + (t * s)) % l").subs('t', t).subs('s', s).subs('l', l)
+        expr = EXPR.subs('t', t).subs('s', s).subs('l', l)
         xv = sp.lambdify('x', expr, "numpy")(led_seq)
 
         for x in range(LED_COUNT):
