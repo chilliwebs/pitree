@@ -227,19 +227,25 @@ def worker():
                 SPEED = 0.5
             if item == 102: # 1
                 SPEED = 1
-            if item == 103: # 30
+            if item == 103: # 1
+                SPEED = 2
+            if item == 104: # 1
+                SPEED = 4
+            if item == 105: # 1
+                SPEED = 8
+            if item == 106: # 30
                 SPEED = 30
-            if item == 104: # 60
+            if item == 107: # 60
                 SPEED = 60
-            if item == 105: # 120
+            if item == 108: # 120
                 SPEED = 120
-            if item == 106: # 240
+            if item == 109: # 240
                 SPEED = 240
-            if item == 107: # 750
+            if item == 110: # 750
                 SPEED = 750
-            if item == 108: # 2x
+            if item == 111: # 2x
                 SPEED = 750*2
-            if item == 109: # 4x
+            if item == 112: # 4x
                 SPEED = 750*4
 
             q.task_done()
