@@ -102,7 +102,7 @@
                 });
             }
 
-            for (var i = 0; i < 8; i++) {
+            for (var i = 0; i < 9; i++) {
                 (function (no) {
                     document.getElementById('mode' + no).addEventListener('click', function (event) {
                         fetch('/mode?no=' + no);
@@ -183,12 +183,13 @@
     <button id="mode0">Warm</button>
     <button id="mode1">White</button>
     <button id="mode2">Random</button>
+    <button id="mode3">Red_Green_Blue_Yellow_Auqua_Violet</button>
     <button id="mode6">Rainbow</button>
     <br /><br />
     <div>Style:</div>
     <br /><br />
     <div>Mode:</div>
-    <button id="mode3">Wipe</button>
+    <button id="mode8">Wipe</button>
     <button id="mode4">Fanfare</button>
     <button id="mode5">Chase</button>
     <button id="mode7">Random Fast</button>
