@@ -221,7 +221,11 @@ def worker():
                 build_expr(x_expr, y_expr)
             if item == 56: # chase
                 x_expr = "(i + (t * s * l)) / c"
-                y_expr = "200 * sin(i + (t * s)) - 200"
+                y_expr = "50 * sin(i + (t * s)) - 49"
+                build_expr(x_expr, y_expr)
+            if item == 57: # race
+                x_expr = "(i + (t * s * l)) / c"
+                y_expr = "100 * sin(i + (t * s)) - 100"
                 build_expr(x_expr, y_expr)
 
 
