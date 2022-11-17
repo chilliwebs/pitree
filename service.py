@@ -72,9 +72,7 @@ PALATE = WARM_WHITE
 SPEED = 1
 
 allowed_names = {"t": 0, "s": 0, "l": 0, "range": range}
-
-expr = "[[((i + (t * s)) % l),(i * 0)] for i in range(750)]"
-
+expr = "[[((i + (t * s)) % l), (i * 0)] for i in range(750)]"
 comp = compile(expr, '<string>', 'eval')
 for name in comp.co_names:
     if name not in allowed_names:
