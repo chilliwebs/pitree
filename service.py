@@ -221,7 +221,7 @@ def worker():
                 build_expr(x_expr, y_expr)
             if item == 56: # chase
                 x_expr = "(i + (t * s)) / c"
-                y_expr = "sin((i/4) - (t * s))"
+                y_expr = "sin(sin(i) + (t * s)) + (3.1415/4)"
                 build_expr(x_expr, y_expr)
 
 
