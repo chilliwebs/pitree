@@ -73,7 +73,7 @@ SPEED = 1
 
 expr = "(x + (t * s)) % l"
 compiled = compile(expr, '<string>', 'eval')
-allowed_names = {"sum": sum}
+allowed_names = {"x": "x", "t": "t", "s": "s", "l": "l", "sum": sum}
 for name in compiled.co_names:
     if name not in allowed_names:
         raise NameError(f"Use of {name} not allowed")
