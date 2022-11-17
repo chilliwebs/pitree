@@ -243,20 +243,25 @@ def worker():
 
             if item == 5:
                 SPEED = 1
-                x_expr = "((t * s)) % l"
+                x_expr = "i * 0"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
             if item == 6:
                 SPEED = 1
-                x_expr = "(i + (t * s)) % l"
+                x_expr = "((t * s)) % l"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
             if item == 7:
-                SPEED = 120
+                SPEED = 1
                 x_expr = "(i + (t * s)) % l"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
             if item == 8:
+                SPEED = 120
+                x_expr = "(i + (t * s)) % l"
+                y_expr = "i * 0"
+                build_expr(x_expr, y_expr)
+            if item == 9:
                 SPEED = 120
                 x_expr = "((i if i % 2 == 0 else -2*i) + (t * s)) % l"
                 y_expr = "i * 0"
