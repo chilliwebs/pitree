@@ -73,8 +73,8 @@ SPEED = 1
 FPS = 1/15
 EXPR = False
 
-allowed_globals = {"t": 0, "s": 0, "l": 0}
-allowed_locals = {"LED_COUNT": LED_COUNT, "range": range}
+allowed_globals = {"t": 0, "s": 0, "l": 0, "c": 0}
+allowed_locals = {"range": range}
 
 def build_expr(x_expr, y_expr):
     global EXPR
@@ -88,7 +88,7 @@ def build_expr(x_expr, y_expr):
 def eval_expr(t, s, l):
     global EXPR
     if EXPR:
-        return eval(EXPR, {"__builtins__": {}, "t": t, "s": s, "l": l}, allowed_locals)
+        return eval(EXPR, {"__builtins__": {}, "t": t, "s": s, "l": l, "c": LED_COUNT}, allowed_locals)
     else:
         return [[0,0] for i in range(LED_COUNT)]
 
@@ -238,8 +238,8 @@ def worker():
                 build_expr(x_expr, y_expr)
 
             if item == 12: # wipe
-                SPEED = 10
-                x_expr = "((i + (t * s)) / LED_COUNT) % l"
+                SPEED = 120
+                x_expr = "((i + (t * s)) / c) % l"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
 
