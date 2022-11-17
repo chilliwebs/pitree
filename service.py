@@ -94,7 +94,7 @@ def tree():
         l = len(current_palate) # length
 
         for x in range(LED_COUNT):
-            fx = eval(compiled, {"__builtins__": {}}, {"t": t, "s": s, "l": l})
+            fx = eval(compiled, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "x": x})
             BUFF[x] = current_palate[int(fx)][y]
 
         for i in range(LED_COUNT):
