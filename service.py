@@ -72,9 +72,6 @@ AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
 
-expr = "int((x + (t * s)) % l)"
-fx = eval('lambda: ' + expr)
-
 def tree():
     global run
     while run:
@@ -89,6 +86,10 @@ def tree():
         y = 0           # y
         s = SPEED       # speed
         l = len(current_palate) # length
+
+        expr = "int((x + (t * s)) % l)"
+        fx = eval('lambda: ' + expr)
+
         for x in range(LED_COUNT):
             BUFF[x] = current_palate[fx(x)][y]
 
