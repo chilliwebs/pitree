@@ -67,13 +67,14 @@ def shutdown_server():
 # led buffer
 BUFF = [Color(0, 0, 0)] * LED_COUNT
 
+AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
 
 allowed_names = {"i": 0, "t": 0, "s": 0, "l": 0, "sum": sum}
 
-x_expr = "(i + (t * s)) % l"
-y_expr = "i * 0"
+x_expr = "[((i + (t * s)) % l) for i in range(750)]"
+y_expr = "[(i * 0) for i in range(750)]"
 
 x_comp = compile(x_expr, '<string>', 'eval')
 for name in x_comp.co_names:
@@ -88,6 +89,8 @@ for name in x_comp.co_names:
 def tree():
     global run
     while run:
+        # global mode
+        global AVG_SLEEP
         global PALATE
         global SPEED
 
@@ -98,15 +101,19 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
 
+        fx = eval(x_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "i": i})
+        fy = eval(y_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "i": i})
+
         for i in range(LED_COUNT):
-            fx = eval(x_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "i": i})
-            fy = eval(y_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "i": i})
-            BUFF[i] = current_palate[int(fx)][int(fy)]
+            BUFF[i] = current_palate[int(fx[i])][int(fy[i])]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
         
         strip.show()
+        slp = max(0.05-(time.time()-t), 0)
+        AVG_SLEEP = (AVG_SLEEP + slp)/2.0
+        time.sleep(slp)
 
         # # Warm White
         # if mode == 0:
@@ -260,6 +267,11 @@ def bg_img():
 @app.route("/ver")
 def ver():
     return '0.0.30'
+
+@app.route("/AVG_SLEEP")
+def avg_slp():
+    global AVG_SLEEP
+    return str(AVG_SLEEP)
 
 @app.route("/hasupdate")
 def hasupdate():
