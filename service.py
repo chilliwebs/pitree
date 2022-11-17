@@ -93,7 +93,7 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
 
-        f = eval(comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "range": range})
+        f = eval(comp, {"__builtins__": {}, "t": t, "s": s, "l": l}, {"range": range})
 
         for i in range(LED_COUNT):
             BUFF[i] = current_palate[int(f[i][0])][int(f[i][1])]
