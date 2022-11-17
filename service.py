@@ -108,7 +108,7 @@ def tree():
         f = eval_expr(t, s, l)
 
         for i in range(LED_COUNT):
-            strip.setPixelColor(i, current_palate[int(f[i][0]%l)][int(f[i][1]%l)])
+            strip.setPixelColor(i, current_palate[int(f[i][0])%l][int(f[i][1])%l])
         
         strip.show()
         slp = max(FPS-(time.time()-t), 0)
