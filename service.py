@@ -107,8 +107,6 @@ def tree():
         l = len(current_palate)
         f = eval_expr(t, s, l)
 
-        print(f)
-
         for i in range(LED_COUNT):
             strip.setPixelColor(i, current_palate[int(f[i][0])%l][int(f[i][1])%l])
         
