@@ -106,7 +106,7 @@
                 });
             }
 
-            for (var btn of btns) {
+            for (var btn of document.getElementsByTagName('button')) {
                 if(btn.id.indexOf('mode') == 0) {
                     (function (b) {
                         b.addEventListener('click', function (event) {
