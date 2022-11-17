@@ -112,7 +112,8 @@ def tree():
             strip.setPixelColor(i, current_palate[int(f[i][0])%l][int(f[i][1])%l])
         
         strip.show()
-        slp = max(FPS-(time.time()-t), 0)
+        fps = min(1 if SPEED == 1 else FPS, 1)
+        slp = max(fps-(time.time()-t), 0)
         AVG_SLEEP = (AVG_SLEEP + slp)/2.0
         time.sleep(slp)
 
@@ -191,10 +192,8 @@ def worker():
             item = q.get(True, 1)
             if item == 0:
                 PALATE = WARM_WHITE
-                item = 5 # also set solid
             if item == 1:
                 PALATE = BRIGHT_WHITE
-                item = 5 # also set solid
             if item == 2:
                 PALATE = RANDOM
             if item == 3:
@@ -202,47 +201,41 @@ def worker():
             if item == 4:
                 PALATE = RAINBOW
 
-            if item == 5: # solid
-                SPEED = 1
+
+            if item == 10: # Solid
                 x_expr = "i * 0"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 6: # Cycle (slow)
-                SPEED = 1
+            if item == 11: # Cycle
                 x_expr = "(t * s)"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 7: # Cycle (fast)
-                SPEED = 120
-                x_expr = "(t * s)"
-                y_expr = "i * 0"
-                build_expr(x_expr, y_expr)
-            if item == 8: # crawl (slow)
-                SPEED = 1
+            if item == 12: # crawl
                 x_expr = "i + (t * s)"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 9: # Run (fast)
-                SPEED = 120
-                x_expr = "i + (t * s)"
-                y_expr = "i * 0"
-                build_expr(x_expr, y_expr)
-            if item == 10: # Ungulate (slow)
-                SPEED = 1
+            if item == 13: # Ungulate 
                 x_expr = "(i if i % 2 == 0 else -2*i) + (t * s)"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 11: # Ungulate (fast)
-                SPEED = 120
-                x_expr = "(i if i % 2 == 0 else -2*i) + (t * s)"
-                y_expr = "i * 0"
-                build_expr(x_expr, y_expr)
-
-            if item == 12: # wipe
-                SPEED = 240
+            if item == 14: # wipe
                 x_expr = "(i + (t * s)) / c"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
+
+
+            if item == 15: # wipe
+                SPEED = 1
+            if item == 16: # wipe
+                SPEED = 30
+            if item == 17: # wipe
+                SPEED = 60
+            if item == 18: # wipe
+                SPEED = 120
+            if item == 19: # wipe
+                SPEED = 240
+            if item == 20: # wipe
+                SPEED = 750
 
             q.task_done()
         except queue.Empty:
@@ -297,4 +290,6 @@ if __name__ == "__main__":
     threading.Thread(target=worker, daemon=True).start()
     threading.Thread(target=tree, daemon=True).start()
     q.put(0)
+    q.put(10)
+    q.put(15)
     app.run(host='0.0.0.0', port=8811)
