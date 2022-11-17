@@ -76,7 +76,7 @@ def tree():
         global mode
         global AVG_SLEEP
 
-        PALATE = RANDOM
+        PALATE = RAINBOW
 
         t = time.time()
         y = 0
