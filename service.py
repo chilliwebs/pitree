@@ -214,8 +214,6 @@ def worker():
             # global mode
             item = q.get(True, 1)
             # mode = item
-            q.task_done()
-
             if mode == 0:
                 PALATE = WARM_WHITE
             if mode == 1:
@@ -226,6 +224,8 @@ def worker():
             if mode == 6:
                 PALATE = RAINBOW
                 SPEED = 120
+
+            q.task_done()
         except queue.Empty:
             continue # nothing
 
