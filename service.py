@@ -71,10 +71,18 @@ AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
 
-expr = "(x + (t * s)) % l"
-compiled = compile(expr, '<string>', 'eval')
-allowed_names = {"x": 0, "t": 0, "s": 0, "l": 0, "sum": sum}
-for name in compiled.co_names:
+allowed_names = {"i": 0, "t": 0, "s": 0, "l": 0, "sum": sum}
+
+x_expr = "(i + (t * s)) % l"
+y_expr = "i * 0"
+
+x_comp = compile(x_expr, '<string>', 'eval')
+for name in x_comp.co_names:
+    if name not in allowed_names:
+        raise NameError(f"Use of {name} not allowed")
+
+y_comp = compile(y_expr, '<string>', 'eval')
+for name in x_comp.co_names:
     if name not in allowed_names:
         raise NameError(f"Use of {name} not allowed")
 
@@ -93,9 +101,10 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
 
-        for x in range(LED_COUNT):
-            fx = eval(compiled, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "x": x})
-            BUFF[x] = current_palate[int(fx)][y]
+        for i in range(LED_COUNT):
+            fx = eval(x_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "i": i})
+            fy = eval(y_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "i": i})
+            BUFF[x] = current_palate[int(fx)][int(fy)]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
