@@ -82,7 +82,7 @@ def tree():
             strip.setPixelColor(i, BUFF[i])
         
         strip.show()
-        time.sleep(0.05)
+        time.sleep(max(0.05-(time.time()-t), 0))
 
         # # Warm White
         # if mode == 0:
