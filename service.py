@@ -79,7 +79,7 @@ allowed_locals = {"range": range}
 def build_expr(x_expr, y_expr):
     global EXPR
     EXPR = False
-    expr_str = "[[(%s), (%s)] for i in range(750)]" % (x_expr, y_expr)
+    expr_str = "[[(%s), (%s)] for i in range(LED_COUNT)]" % (x_expr, y_expr)
     EXPR = compile(expr_str, '<string>', 'eval')
     for name in EXPR.co_names:
         if name not in allowed_globals and name not in allowed_locals:
@@ -90,7 +90,7 @@ def eval_expr(t, s, l):
     if EXPR:
         return eval(EXPR, {"__builtins__": {}, "t": t, "s": s, "l": l}, allowed_locals)
     else:
-        return [[0,0] for i in range(l)]
+        return [[0,0] for i in range(LED_COUNT)]
 
 def tree():
     global run
