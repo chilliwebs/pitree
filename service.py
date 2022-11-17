@@ -189,6 +189,7 @@ def worker():
                 PALATE = RAINBOW
 
 
+            # https://www.desmos.com/calculator
             if item == 50: # Solid
                 x_expr = "i * 0"
                 y_expr = "i * 0"
@@ -209,6 +210,10 @@ def worker():
                 x_expr = "(i + (t * s)) / c"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
+            
+            if item == 55: # chase
+                x_expr = "i + (t * s)"
+                y_expr = "sin(i)"
 
 
             if item == 100: # 1/4
