@@ -238,8 +238,8 @@ def worker():
                 build_expr(x_expr, y_expr)
 
             if item == 12: # wipe
-                SPEED = 1
-                x_expr = "((i + (t * s)) / 750) % l"
+                SPEED = 120
+                x_expr = "((i + ((t % 750) * s)) / 750) % l"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
 
