@@ -71,11 +71,11 @@ AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
 
-allowed_names = {"t": 0, "s": 0, "l": 0, "range": range}
+allowed = {"range": range}
 expr = "[[((i + (t * s)) % l), (i * 0)] for i in range(750)]"
 comp = compile(expr, '<string>', 'eval')
 for name in comp.co_names:
-    if name not in allowed_names:
+    if name not in {"t": 0, "s": 0, "l": 0} or name not in allowed:
         raise NameError(f"Use of {name} not allowed")
 
 def tree():
@@ -93,7 +93,7 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
 
-        f = eval(comp, {"__builtins__": {}, "t": t, "s": s, "l": l}, {"range": range})
+        f = eval(comp, {"__builtins__": {}, "t": t, "s": s, "l": l}, allowed)
 
         for i in range(LED_COUNT):
             BUFF[i] = current_palate[int(f[i][0])][int(f[i][1])]
