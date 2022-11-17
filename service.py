@@ -89,10 +89,11 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
 
-        expr = sp.sympify("(x + (t * s)) % l")
+        expr = sp.sympify("(x + (t * s)) % l").subs('t', t).subs('s', s).subs('l', l)
         
-        xv = sp.lambdify('x', expr.subs('t', t).subs('s', s).subs('l', l), "numpy")(led_seq)
-        print(xv[0])
+        print(expr)
+        xv = sp.lambdify('x', expr, "numpy")(led_seq)
+        print(xv)
 
         for x in range(LED_COUNT):
            BUFF[x] = current_palate[int(xv[x])][y]
