@@ -217,7 +217,7 @@ def worker():
             if item == 0:
                 PALATE = WARM_WHITE
             if item == 1:
-                PALATE = WARM_WHITE
+                PALATE = BRIGHT_WHITE
             if item == 2:
                 PALATE = RANDOM
                 SPEED = 1
