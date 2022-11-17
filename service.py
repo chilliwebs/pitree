@@ -112,26 +112,10 @@ def tree():
             strip.setPixelColor(i, current_palate[int(f[i][0])%l][int(f[i][1])%l])
         
         strip.show()
-        fps = min(1 if SPEED == 1 else FPS, 1)
+        fps = (1/SPEED) if SPEED < (1/FPS) else FPS
         slp = max(fps-(time.time()-t), 0)
         AVG_SLEEP = (AVG_SLEEP + slp)/2.0
         time.sleep(slp)
-
-        # # Wipe
-        # if mode == 3:
-        #     width = 15
-        #     for c in RGBYAV:
-        #         if mode != 3:
-        #             break
-        #         for n in range(int(strip.numPixels()/width)+1):
-        #             if mode != 3:
-        #                 break
-        #             for i in range(0,width):
-        #                 if ((n*width)+i) < strip.numPixels():
-        #                     strip.setPixelColor((n*width)+i, c)
-
-        #             strip.show()
-        #             time.sleep(0.05)
 
         # # Fanfare
         # if mode == 4:
@@ -202,40 +186,48 @@ def worker():
                 PALATE = RAINBOW
 
 
-            if item == 10: # Solid
+            if item == 50: # Solid
                 x_expr = "i * 0"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 11: # Cycle
+            if item == 51: # Cycle
                 x_expr = "(t * s)"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 12: # crawl
+            if item == 52: # crawl
                 x_expr = "i + (t * s)"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 13: # Ungulate 
+            if item == 53: # Ungulate 
                 x_expr = "(i if i % 2 == 0 else -2*i) + (t * s)"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 14: # wipe
+            if item == 54: # wipe
                 x_expr = "(i + (t * s)) / c"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
 
 
-            if item == 15: # wipe
+            if item == 100: # 1/4
+                SPEED = 0.25
+            if item == 101: # 1/2
+                SPEED = 0.5
+            if item == 102: # 1
                 SPEED = 1
-            if item == 16: # wipe
+            if item == 103: # 30
                 SPEED = 30
-            if item == 17: # wipe
+            if item == 104: # 60
                 SPEED = 60
-            if item == 18: # wipe
+            if item == 105: # 120
                 SPEED = 120
-            if item == 19: # wipe
+            if item == 106: # 240
                 SPEED = 240
-            if item == 20: # wipe
+            if item == 107: # 750
                 SPEED = 750
+            if item == 108: # 2x
+                SPEED = 750*2
+            if item == 109: # 4x
+                SPEED = 750*4
 
             q.task_done()
         except queue.Empty:
@@ -290,6 +282,6 @@ if __name__ == "__main__":
     threading.Thread(target=worker, daemon=True).start()
     threading.Thread(target=tree, daemon=True).start()
     q.put(0)
-    q.put(10)
-    q.put(15)
+    q.put(50)
+    q.put(102)
     app.run(host='0.0.0.0', port=8811)
