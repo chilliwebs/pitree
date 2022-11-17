@@ -87,9 +87,7 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
         for x in range(LED_COUNT):
-            nx = int((x + (t * s)) % l) % l
-            print(nx)
-            BUFF[x] = current_palate[nx][y]
+            BUFF[x] = current_palate[int((x + (t * s)) % l) % l][y]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
