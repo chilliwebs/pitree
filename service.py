@@ -44,9 +44,9 @@ def wheel(pos):
     return (r, g, b)
 
 # Color Palates
-BRIGHT_WHITE = [Color(255, 255, 255)]
-WARM_WHITE = [Color(255, 175, 75)]
-RGBYAV = [Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]
+BRIGHT_WHITE = [[Color(255, 255, 255)]]
+WARM_WHITE = [[Color(255, 175, 75)]]
+RGBYAV = [[Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), Color(255, 255, 0), Color(0, 255, 255), Color(255, 0, 255)]]
 
 RANDOM = [[Color(0, 0, 0)]] * LED_COUNT
 for i in range(0, LED_COUNT):
@@ -76,7 +76,7 @@ def tree():
         global mode
         global AVG_SLEEP
 
-        PALATE = RAINBOW
+        PALATE = RGBYAV
 
         t = time.time()
         y = 0
