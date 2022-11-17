@@ -73,8 +73,8 @@ SPEED = 1
 FPS = 1/15
 EXPR = False
 
-allowed_globals = {"t": 0, "s": 0, "l": 0, "c": 0}
-allowed_locals = {"range": range, "sin": math.sin}
+allowed_globals = {"__builtins__": {}, "t": 0, "s": 0, "l": 0, "c": 0, "sin": math.sin}
+allowed_locals = {"range": range}
 
 def build_expr(x_expr, y_expr):
     global EXPR
@@ -88,7 +88,7 @@ def build_expr(x_expr, y_expr):
 def eval_expr(t, s, l, c):
     global EXPR
     if EXPR:
-        return eval(EXPR, {"__builtins__": {}, "t": t, "s": s, "l": l, "c": c}, allowed_locals)
+        return eval(EXPR, allowed_globals, allowed_locals)
     else:
         return [[0,0] for i in range(LED_COUNT)]
 
