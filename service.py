@@ -216,10 +216,15 @@ def worker():
             # mode = item
             if item == 0:
                 PALATE = WARM_WHITE
+                SPEED = 1
             if item == 1:
                 PALATE = BRIGHT_WHITE
+                SPEED = 1
             if item == 2:
                 PALATE = RANDOM
+                SPEED = 1
+            if item == 3:
+                PALATE = RGBYAV
                 SPEED = 1
             if item == 6:
                 PALATE = RAINBOW
