@@ -79,7 +79,7 @@ allowed_locals = {"range": range}
 def build_expr(x_expr, y_expr):
     global EXPR
     EXPR = False
-    expr_str = "[[(%s), (%s)] for i in range(LED_COUNT)]" % (x_expr, y_expr)
+    expr_str = "[[(%s), (%s)] for i in range(c)]" % (x_expr, y_expr)
     EXPR = compile(expr_str, '<string>', 'eval')
     for name in EXPR.co_names:
         if name not in allowed_globals and name not in allowed_locals:
