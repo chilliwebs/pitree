@@ -109,10 +109,10 @@ def tree():
         f = eval_expr(t, s, l, c)
 
         for i in range(LED_COUNT):
-            if f[i][0] > 0 and f[i][1] > 0:
-                strip.setPixelColor(i, current_palate[int(f[i][0])%l][int(f[i][1])%l])
-            else:
+            if f[i][0] < 0 and f[i][1] < 0:
                 strip.setPixelColor(i, Color(0, 0, 0))
+            else:
+                strip.setPixelColor(i, current_palate[int(f[i][0])%l][int(f[i][1])%l])
         
         strip.show()
         fps = (1/SPEED) if SPEED < (1/FPS) else FPS
