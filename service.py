@@ -72,8 +72,8 @@ AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
 
-expr = "(x + (t * s)) % l"
-fx = int(eval('lambda: ' + expr))
+expr = "int((x + (t * s)) % l)"
+fx = eval('lambda: ' + expr)
 
 def tree():
     global run
