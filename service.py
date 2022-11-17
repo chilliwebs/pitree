@@ -93,14 +93,14 @@ def tree():
         expr.subs('t', t)
         expr.subs('s', s)
         expr.subs('l', l)
-        buff = sp.lambdify('x', expr, "numpy")(led_seq)
-        print(buff[0])
+        xv = sp.lambdify('x', expr, "numpy")(led_seq)
+        print(xv[0])
 
-        # for x in range(LED_COUNT):
-        #    BUFF[x] = current_palate[int((x + (t * s)) % l) % l][y]
+        for x in range(LED_COUNT):
+           BUFF[x] = current_palate[int(xv[x])][y]
 
         for i in range(LED_COUNT):
-            strip.setPixelColor(i, buff[i])
+            strip.setPixelColor(i, BUFF[i])
         
         strip.show()
         slp = max(0.05-(time.time()-t), 0)
