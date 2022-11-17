@@ -90,10 +90,8 @@ def tree():
         l = len(current_palate) # length
 
         expr = sp.sympify("(x + (t * s)) % l")
-        expr.subs('t', t)
-        expr.subs('s', s)
-        expr.subs('l', l)
-        xv = sp.lambdify('x', expr, "numpy")(led_seq)
+        
+        xv = sp.lambdify('x', expr.subs('t', t).subs('s', s).subs('l', l), "numpy")(led_seq)
         print(xv[0])
 
         for x in range(LED_COUNT):
