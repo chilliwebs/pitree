@@ -69,22 +69,23 @@ def shutdown_server():
 BUFF = [Color(0, 0, 0)] * LED_COUNT
 
 AVG_SLEEP = 0.0
+PALATE = RGBYAV
+SPEED = 1 #120
 
 def tree():
     global run
     while run:
         global mode
         global AVG_SLEEP
-
-        PALATE = RGBYAV
+        global PALATE
+        global SPEED
 
         t = time.time() # time
         y = 0           # y
-        s = 120         # speed
-        s = 1
+        s = SPEED       # speed
         l = len(PALATE) # length
         for x in range(LED_COUNT):
-            BUFF[x] = PALATE[(x + int((t * s) % l)) % l][y]
+            BUFF[x] = PALATE[int((x + (t * s)) % l) % l][y]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
