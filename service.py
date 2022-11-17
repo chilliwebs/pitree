@@ -95,7 +95,9 @@ def tree():
         #fx = sp.lambdify('x', expr, "numpy")(led_seq)
 
         for x in range(LED_COUNT):
-            strip.setPixelColor(i, current_palate[int(eval("(x + (t * s)) % l"))][y])
+            fx = int(eval("(x + (t * s)) % l"))
+            print(fx)
+            strip.setPixelColor(i, current_palate[fx][y])
             # strip.setPixelColor(i, current_palate[int(expr.evalf(subs={'x': i}))][y])
             #strip.setPixelColor(i, current_palate[int(fx[i])][y])
         
