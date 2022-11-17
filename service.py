@@ -72,7 +72,7 @@ AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
 
-# led_seq = np.linspace(1, 750, 750)
+led_seq = np.linspace(1, 750, 750)
 
 def tree():
     global run
