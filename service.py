@@ -220,15 +220,15 @@ def worker():
                 y_expr = "sin((2*i) - (t * s))"
                 build_expr(x_expr, y_expr)
             if item == 56: # chase
-                x_expr = "(i + (t * s * l)) / c"
+                x_expr = "(i + (t * s * l * 2)) / c"
                 y_expr = "2 * sin((i/2) + (t * s)) - 1"
                 build_expr(x_expr, y_expr)
             if item == 57: # race
-                x_expr = "(i + (t * s * l * 2)) / c"
+                x_expr = "(i + (t * s * l * 4)) / c"
                 y_expr = "25 * sin((i/4) + (t * s)) - 24"
                 build_expr(x_expr, y_expr)
             if item == 58: # race
-                x_expr = "(i + (t * s * l * 5)) / c"
+                x_expr = "(i + (t * s * l * 6)) / c"
                 y_expr = "200 * sin((i/20) + (t * s)) - 199"
                 build_expr(x_expr, y_expr)
 
