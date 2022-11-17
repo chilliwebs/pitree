@@ -248,7 +248,8 @@ def worker():
                 PALATE = RAINBOW
                 SPEED = 120
 
-            x_expr = "((i if i % 2 == 0 else -2*i) + (t * s)) % l"
+            #x_expr = "((i if i % 2 == 0 else -2*i) + (t * s)) % l"
+            x_expr = "(i + (t * s)) % l"
             #x_expr = "((t * s)) % l"
             y_expr = "i * 0"
             build_expr(x_expr, y_expr)
