@@ -69,7 +69,7 @@ def shutdown_server():
 BUFF = [Color(0, 0, 0)] * LED_COUNT
 
 AVG_SLEEP = 0.0
-PALATE = RGBYAV
+PALATE = WARM_WHITE
 SPEED = 1
 
 def tree():
@@ -214,14 +214,14 @@ def worker():
             # global mode
             item = q.get(True, 1)
             # mode = item
-            if mode == 0:
+            if item == 0:
                 PALATE = WARM_WHITE
-            if mode == 1:
+            if item == 1:
                 PALATE = WARM_WHITE
-            if mode == 2:
+            if item == 2:
                 PALATE = RANDOM
                 SPEED = 1
-            if mode == 6:
+            if item == 6:
                 PALATE = RAINBOW
                 SPEED = 120
 
