@@ -67,6 +67,7 @@ def shutdown_server():
 # led buffer
 BUFF = [Color(0, 0, 0)] * LED_COUNT
 
+AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
 
@@ -77,6 +78,7 @@ def tree():
     global run
     while run:
         # global mode
+        global AVG_SLEEP
         global PALATE
         global SPEED
 
@@ -88,13 +90,16 @@ def tree():
         l = len(current_palate) # length
 
         for x in range(LED_COUNT):
-            fx = eval(compiled)
+            fx = eval(compiled, locals={"t": t, "s": s, "l": l})
             BUFF[x] = current_palate[int(fx)][y]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
         
         strip.show()
+        slp = max(0.05-(time.time()-t), 0)
+        AVG_SLEEP = (AVG_SLEEP + slp)/2.0
+        time.sleep(slp)
 
         # # Warm White
         # if mode == 0:
@@ -248,6 +253,11 @@ def bg_img():
 @app.route("/ver")
 def ver():
     return '0.0.30'
+
+@app.route("/AVG_SLEEP")
+def avg_slp():
+    global AVG_SLEEP
+    return str(AVG_SLEEP)
 
 @app.route("/hasupdate")
 def hasupdate():
