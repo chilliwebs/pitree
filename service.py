@@ -73,16 +73,10 @@ SPEED = 1
 
 allowed_names = {"t": 0, "s": 0, "l": 0, "range": range}
 
-x_expr = "[((i + (t * s)) % l) for i in range(750)]"
-y_expr = "[(i * 0) for i in range(750)]"
+expr = "[[((i + (t * s)) % l),(i * 0)] for i in range(750)]"
 
-x_comp = compile(x_expr, '<string>', 'eval')
-for name in x_comp.co_names:
-    if name not in allowed_names:
-        raise NameError(f"Use of {name} not allowed")
-
-y_comp = compile(y_expr, '<string>', 'eval')
-for name in x_comp.co_names:
+comp = compile(expr, '<string>', 'eval')
+for name in comp.co_names:
     if name not in allowed_names:
         raise NameError(f"Use of {name} not allowed")
 
@@ -101,11 +95,10 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
 
-        fx = eval(x_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "range": range})
-        fy = eval(y_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "range": range})
+        f = eval(comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "range": range})
 
         for i in range(LED_COUNT):
-            BUFF[i] = current_palate[int(fx[i])][int(fy[i])]
+            BUFF[i] = current_palate[int(f[i][0])][int(f[i][1])]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
