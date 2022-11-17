@@ -76,10 +76,12 @@ def tree():
         global mode
         global AVG_SLEEP
 
+        PALATE = RANDOM
+
         t = time.time()
         y = 0
         for x in range(LED_COUNT):
-            BUFF[x] = RAINBOW[(x + int((t * 120) % 750)) % 750][y]
+            BUFF[x] = PALATE[(x + int((t * 120) % 750)) % 750][y]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
