@@ -80,8 +80,9 @@ def tree():
 
         t = time.time()
         y = 0
+        s = len(PALATE)
         for x in range(LED_COUNT):
-            BUFF[x] = PALATE[(x + int((t * 120) % 750)) % 750][y]
+            BUFF[x] = PALATE[(x + int((t * 120) % s)) % s][y]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
