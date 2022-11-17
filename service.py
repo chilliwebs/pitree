@@ -104,7 +104,7 @@ def tree():
         for i in range(LED_COUNT):
             fx = eval(x_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "i": i})
             fy = eval(y_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "i": i})
-            BUFF[x] = current_palate[int(fx)][int(fy)]
+            BUFF[i] = current_palate[int(fx)][int(fy)]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
