@@ -73,7 +73,11 @@ SPEED = 1
 
 allowed_globals = {"t": 0, "s": 0, "l": 0}
 allowed_locals = {"range": range}
-expr = "[[((i + (t * s)) % l), (i * 0)] for i in range(750)]"
+
+x_expr = "(i + (t * s)) % l"
+y_expr = "i * 0"
+
+expr = "[[(%s), (%s)] for i in range(750)]" % (x_expr, y_expr)
 comp = compile(expr, '<string>', 'eval')
 for name in comp.co_names:
     if name not in allowed_globals and name not in allowed_locals:
