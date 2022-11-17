@@ -108,7 +108,7 @@ def tree():
         f = eval_expr(t, s, l)
 
         for i in range(LED_COUNT):
-            strip.setPixelColor(i, current_palate[int(f[i%l][0])][int(f[i%l][1])])
+            strip.setPixelColor(i, current_palate[int(f[i][0]%l)][int(f[i][1]%l)])
         
         strip.show()
         slp = max(FPS-(time.time()-t), 0)
@@ -239,7 +239,7 @@ def worker():
 
             if item == 12: # wipe
                 SPEED = 10
-                x_expr = "t // 50"
+                x_expr = "i / 50"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
 
