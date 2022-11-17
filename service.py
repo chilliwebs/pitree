@@ -115,30 +115,6 @@ def tree():
         AVG_SLEEP = (AVG_SLEEP + slp)/2.0
         time.sleep(slp)
 
-        # # Warm White
-        # if mode == 0:
-        #     for i in range(strip.numPixels()):
-        #         strip.setPixelColor(i, WARM_WHITE[i%1])
-
-        #     strip.show()
-        #     time.sleep(1)
-
-        # # Bright White
-        # if mode == 1:
-        #     for i in range(strip.numPixels()):
-        #         strip.setPixelColor(i, BRIGHT_WHITE[i%1])
-
-        #     strip.show()
-        #     time.sleep(1)
-
-        # # Random
-        # if mode == 2:
-        #     for i in range(strip.numPixels()):
-        #         strip.setPixelColor(i, RANDOM[random.randint(0,strip.numPixels()-1)])
-
-        #     strip.show()
-        #     time.sleep(1)
-
         # # Wipe
         # if mode == 3:
         #     width = 15
@@ -203,24 +179,6 @@ def tree():
         #             strip.show()
         #             time.sleep(0.05)
 
-        # # Rainbow
-        # if mode == 6:
-        #     for j in range(0, strip.numPixels(), 10):
-        #         if mode != 6:
-        #             break
-        #         for i in range(strip.numPixels()):
-        #             strip.setPixelColor(i, RAINBOW[(i+j)%strip.numPixels()] )
-
-        #         strip.show()
-        #         time.sleep(0.05)
-
-        # # Fast Random
-        # if mode == 7:
-        #     for i in range(strip.numPixels()):
-        #         strip.setPixelColor(i, RANDOM[random.randint(0,strip.numPixels()-1)])
-
-        #    strip.show()
-        #    time.sleep(0.05)
             
 
 def worker():
