@@ -75,7 +75,7 @@ FPS = 1/15
 allowed_globals = {"t": 0, "s": 0, "l": 0}
 allowed_locals = {"range": range}
 
-x_expr = "((i) if i%2==0 else (-i)) + (t * s)) % l"
+x_expr = "((i) if (i%2==0) else (-i)) + (t * s)) % l"
 #x_expr = "((t * s)) % l"
 y_expr = "i * 0"
 
