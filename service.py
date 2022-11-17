@@ -70,7 +70,7 @@ BUFF = [Color(0, 0, 0)] * LED_COUNT
 
 AVG_SLEEP = 0.0
 PALATE = RGBYAV
-SPEED = 1 #120
+SPEED = 1
 
 def tree():
     global run
@@ -208,6 +208,7 @@ def worker():
     while run:
         try:
             global PALATE
+            global SPEED
             # global mode
             item = q.get(True, 1)
             # mode = item
@@ -219,8 +220,10 @@ def worker():
                 PALATE = WARM_WHITE
             if mode == 2:
                 PALATE = RANDOM
+                SPEED = 1
             if mode == 6:
                 PALATE = RAINBOW
+                SPEED = 120
         except queue.Empty:
             continue # nothing
 
