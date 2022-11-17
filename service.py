@@ -80,14 +80,16 @@ def tree():
         global PALATE
         global SPEED
 
+        current_palate = PALATE
+
         t = time.time() # time
         y = 0           # y
         s = SPEED       # speed
-        l = len(PALATE) # length
+        l = len(current_palate) # length
         for x in range(LED_COUNT):
             nx = int((x + (t * s)) % l) % l
             print(nx)
-            BUFF[x] = PALATE[nx][y]
+            BUFF[x] = current_palate[nx][y]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, BUFF[i])
