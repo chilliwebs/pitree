@@ -74,7 +74,7 @@ FPS = 1/15
 EXPR = False
 
 allowed_globals = {"t": 0, "s": 0, "l": 0, "c": 0}
-allowed_locals = {"range": range, "sin", math.sin}
+allowed_locals = {"range": range, "sin": math.sin}
 
 def build_expr(x_expr, y_expr):
     global EXPR
