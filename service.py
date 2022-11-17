@@ -88,6 +88,10 @@ def build_expr(x_expr, y_expr):
 def eval_expr(t, s, l, c):
     global EXPR
     if EXPR:
+        allowed_globals["t"] = t
+        allowed_globals["s"] = s
+        allowed_globals["l"] = l
+        allowed_globals["c"] = c
         return eval(EXPR, allowed_globals, allowed_locals)
     else:
         return [[0,0] for i in range(LED_COUNT)]
