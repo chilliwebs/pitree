@@ -232,10 +232,10 @@ def worker():
             item = q.get(True, 1)
             if item == 0:
                 PALATE = WARM_WHITE
-                item = 5
+                item = 5 # also set solid
             if item == 1:
                 PALATE = BRIGHT_WHITE
-                item = 5
+                item = 5 # also set solid
             if item == 2:
                 PALATE = RANDOM
             if item == 3:
@@ -243,37 +243,37 @@ def worker():
             if item == 4:
                 PALATE = RAINBOW
 
-            if item == 5:
+            if item == 5: # solid
                 SPEED = 1
                 x_expr = "i * 0"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 6:
+            if item == 6: # Cycle (slow)
                 SPEED = 1
                 x_expr = "((t * s)) % l"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 7:
+            if item == 7: # Cycle (fast)
                 SPEED = 120
                 x_expr = "((t * s)) % l"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 8:
+            if item == 8: # crawl (slow)
                 SPEED = 1
                 x_expr = "(i + (t * s)) % l"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 9:
+            if item == 9: # Run (fast)
                 SPEED = 120
                 x_expr = "(i + (t * s)) % l"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 10:
+            if item == 10: # Ungulate (slow)
                 SPEED = 1
                 x_expr = "((i if i % 2 == 0 else -2*i) + (t * s)) % l"
                 y_expr = "i * 0"
                 build_expr(x_expr, y_expr)
-            if item == 11:
+            if item == 11: # Ungulate (fast)
                 SPEED = 120
                 x_expr = "((i if i % 2 == 0 else -2*i) + (t * s)) % l"
                 y_expr = "i * 0"
