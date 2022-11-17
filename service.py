@@ -72,7 +72,7 @@ AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
 
-led_seq = np.linspace(1, 750, 750)
+# led_seq = np.linspace(1, 750, 750)
 
 def tree():
     global run
@@ -89,14 +89,14 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
 
-        expr = sp.sympify("(x + (t * s)) % l")
-        expr.subs('t', t)
-        expr.subs('s', s)
-        expr.subs('l', l)
-        buff = sp.lambdify('x', expr, "numpy")(led_seq)
+        # expr = sp.sympify("(x + (t * s)) % l")
+        # expr.subs('t', t)
+        # expr.subs('s', s)
+        # expr.subs('l', l)
+        # buff = sp.lambdify('x', expr, "numpy")(led_seq)
 
-        #for x in range(LED_COUNT):
-        #    BUFF[x] = current_palate[int((x + (t * s)) % l) % l][y]
+        for x in range(LED_COUNT):
+           BUFF[x] = current_palate[int((x + (t * s)) % l) % l][y]
 
         for i in range(LED_COUNT):
             strip.setPixelColor(i, buff[i])
