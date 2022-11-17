@@ -75,7 +75,7 @@ SPEED = 1 #120
 def tree():
     global run
     while run:
-        global mode
+        # global mode
         global AVG_SLEEP
         global PALATE
         global SPEED
@@ -207,10 +207,20 @@ def worker():
     global run
     while run:
         try:
-            global mode
+            global PALATE
+            # global mode
             item = q.get(True, 1)
-            mode = item
+            # mode = item
             q.task_done()
+
+            if mode == 0:
+                PALATE = WARM_WHITE
+            if mode == 1:
+                PALATE = WARM_WHITE
+            if mode == 2:
+                PALATE = RANDOM
+            if mode == 6:
+                PALATE = RAINBOW
         except queue.Empty:
             continue # nothing
 
