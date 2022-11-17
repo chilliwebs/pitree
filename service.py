@@ -113,7 +113,7 @@ def tree():
         
         strip.show()
         fps = (1/SPEED) if SPEED < (1/FPS) else FPS
-        slp = max(min(fps-(time.time()-t), 0.5), 0)
+        slp = max(min(fps-(time.time()-t), 0.25), 0)
         AVG_SLEEP = (AVG_SLEEP + slp)/2.0
         time.sleep(slp)
 
