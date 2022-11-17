@@ -214,6 +214,7 @@ def worker():
             if item == 55: # chase
                 x_expr = "i + (t * s)"
                 y_expr = "sin(i)"
+                build_expr(x_expr, y_expr)
 
 
             if item == 100: # 1/4
