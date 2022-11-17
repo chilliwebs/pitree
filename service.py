@@ -71,7 +71,7 @@ AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
 
-allowed_names = {"i": 0, "t": 0, "s": 0, "l": 0, "range": range}
+allowed_names = {"t": 0, "s": 0, "l": 0, "range": range}
 
 x_expr = "[((i + (t * s)) % l) for i in range(750)]"
 y_expr = "[(i * 0) for i in range(750)]"
@@ -101,8 +101,8 @@ def tree():
         s = SPEED       # speed
         l = len(current_palate) # length
 
-        fx = eval(x_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "i": i, "range": range})
-        fy = eval(y_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "i": i, "range": range})
+        fx = eval(x_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "range": range})
+        fy = eval(y_comp, {"__builtins__": {}}, {"t": t, "s": s, "l": l, "range": range})
 
         for i in range(LED_COUNT):
             BUFF[i] = current_palate[int(fx[i])][int(fy[i])]
