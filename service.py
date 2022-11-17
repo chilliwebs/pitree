@@ -72,7 +72,7 @@ PALATE = WARM_WHITE
 SPEED = 1
 
 expr = "(x + (t * s)) % l"
-compiled = compiler.compile(expression, '<string>', 'eval')
+compiled = compiler(expression, '<string>', 'eval')
 
 def tree():
     global run
