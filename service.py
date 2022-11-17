@@ -119,7 +119,7 @@ def tree():
                 strip.setPixelColor(i, current_palate[int(f[i][0])%l][int(f[i][1])%l])
         
         strip.show()
-        fps = (1/SPEED) if SPEED < (1/FPS) else FPS
+        fps = FPS #(1/SPEED) if SPEED < (1/FPS) else FPS
         slp = max(min(fps-(time.time()-t), 0.25), 0)
         AVG_SLEEP = (AVG_SLEEP + slp)/2.0
         time.sleep(slp)
