@@ -94,6 +94,7 @@ def tree():
         expr.subs('s', s)
         expr.subs('l', l)
         buff = sp.lambdify('x', expr, "numpy")(led_seq)
+        print(buff[0])
 
         # for x in range(LED_COUNT):
         #    BUFF[x] = current_palate[int((x + (t * s)) % l) % l][y]
