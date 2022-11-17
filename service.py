@@ -78,8 +78,8 @@ allowed_locals = {"range": range}
 
 def build_expr(x_expr, y_expr):
     global EXPR
-    expr = "[[(%s), (%s)] for i in range(750)]" % (x_expr, y_expr)
-    EXPR = compile(expr, '<string>', 'eval')
+    expr_str = "[[(%s), (%s)] for i in range(750)]" % (x_expr, y_expr)
+    EXPR = compile(expr_str, '<string>', 'eval')
     for name in EXPR.co_names:
         if name not in allowed_globals and name not in allowed_locals:
             raise NameError(f"Use of {name} not allowed")
