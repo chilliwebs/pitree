@@ -70,6 +70,7 @@ BUFF = [Color(0, 0, 0)] * LED_COUNT
 AVG_SLEEP = 0.0
 PALATE = WARM_WHITE
 SPEED = 1
+FPS = 1/15
 
 allowed_globals = {"t": 0, "s": 0, "l": 0}
 allowed_locals = {"range": range}
@@ -108,7 +109,7 @@ def tree():
             strip.setPixelColor(i, BUFF[i])
         
         strip.show()
-        slp = max(0.075-(time.time()-t), 0)
+        slp = max(FPS-(time.time()-t), 0)
         AVG_SLEEP = (AVG_SLEEP + slp)/2.0
         time.sleep(slp)
 
