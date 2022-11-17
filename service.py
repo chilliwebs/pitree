@@ -217,7 +217,7 @@ def worker():
             
             if item == 55: # fanfare
                 x_expr = "(i + (t * s * l)) / c"
-                y_expr = "sin(i - (t * s))"
+                y_expr = "sin((2*i) - (t * s))"
                 build_expr(x_expr, y_expr)
             if item == 56: # chase
                 x_expr = "(i + (t * s * l)) / c"
