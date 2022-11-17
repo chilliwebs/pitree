@@ -102,7 +102,7 @@
                 });
             }
 
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 12; i++) {
                 (function (no) {
                     document.getElementById('mode' + no).addEventListener('click', function (event) {
                         fetch('/mode?no=' + no);
@@ -190,10 +190,12 @@
     <br /><br />
     <div>Mode:</div>
     <button id="mode5">Solid</button>
-    <button id="mode6">Cycle</button>
-    <button id="mode7">Crawl</button>
-    <button id="mode8">Run</button>
-    <button id="mode9">Ungulate</button>
+    <button id="mode6">Cycle (slow)</button>
+    <button id="mode7">Cycle (fast)</button>
+    <button id="mode8">Crawl (slow)</button>
+    <button id="mode9">Run (fast)</button>
+    <button id="mode10">Ungulate (slow)</button>
+    <button id="mode11">Ungulate (fast)</button>
     <!-- <button id="mode8">Wipe</button>
     <button id="mode6">Fanfare</button>
     <button id="mode9">Chase</button>
