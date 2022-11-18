@@ -3,23 +3,86 @@
 
 <head>
     <title>PiTree</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+        }
+
+        body,
         html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
             background-color: rgb(0, 25, 5);
             background-image: url(bg.jpg);
             background-blend-mode: color-dodge;
             color: #fff;
-            font-size: 2vw;
+        }
+
+        body, h3, div, span, button {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            line-height: 24px;
+            transition: all 0.5s ease;
+        }
+
+        @media (min-width: 1100px) {
+            body, h3, div, span, button  {
+                font-size: 38px;
+                line-height: 38px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            body, h3, div, span, button  {
+                font-size: 24px;
+                line-height: 24px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            body, h3, div, span, button  {
+                font-size: 14px;
+                line-height: 14px;
+            }
+        }
+
+        h3 {
+            background-color: rgb(0, 100, 0);
+            padding: 0.1em;
+            border-bottom: 0.1em solid rgb(0, 150, 0);
+        }
+
+        .sechead {
+            background-color: rgba(0, 100, 0, 0.5);
+            padding: 0.1em;
         }
 
         #update {
-            width: 2em;
-            height: 2em;
+            width: 1em;
+            height: 1em;
             vertical-align: middle;
             cursor: pointer;
         }
 
-        #colorbar {
+        .mode {
+            background-color: rgba(0, 50, 0, 0.85);
+            border: 1px solid rgb(0, 100, 0);
+            border-radius: 0.125em;
+            color: rgb(175, 255, 175);
+            cursor: pointer;
+            padding: 0.5em;
+            margin: 0.125em;
+        }
+
+        
+        /* #colorbar {
             position: relative;
             display: block;
             width: 800px;
@@ -39,148 +102,40 @@
             width: 800px;
         }
 
-        button,
-        input {
-            background-color: #aaa;
-            border: 1px solid #999;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 3vw;
-            padding: 1vw;
-            margin: 0.5vw;
-        }
 
         .posIndicator {
             position: absolute;
             display: block;
             width: 16px;
             height: 16px;
-            background:#ff0000;
+            background: #ff0000;
             clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
             top: -15px;
             left: -10px;
-        }
+        } */
     </style>
-    <script>
-        var base = 'https://pitree_home.proxy.chilliwebs.com'; //'';
-        var updateIntervalTime = 0;
-        var colorIncrement = 0;
-        var colors = {};
-
-        function updateColors() {
-            const sortedColors = new Array(...Object.entries(colors).sort((a, b) => a[1].pos - b[1].pos));
-            if(sortedColors.length == 1) {
-                sortedColors.push(sortedColors[0]);
-            }
-
-            console.log(sortedColors);
-
-            var cssGradient = "linear-gradient(to right, ";
-            cssGradient += sortedColors.map((c) => c[1].color + " " + Math.floor(c[1].pos / 8) + "%").join(", ")
-            cssGradient += ");";
-
-            console.log(cssGradient);
-
-            document.getElementById('colorbar').setAttribute("style", "background: "+cssGradient)
-        }
-
-        function checkUpdates() {
-            fetch(`${base}/hasupdate`).then((g) => g.text()).then((v) => {
-                if (v === "True") {
-                    document.getElementById('update').style.display = 'inline';
-                    clearInterval(window.updateInterval);
-                } else {
-                    updateIntervalTime = Math.min(updateIntervalTime + 5000, 30000);
-                    // setTimeout(() => {
-                    //     checkUpdates();
-                    // }, updateIntervalTime);
-                } 
-            });
-        }
-
-        window.onload = async function () {
-            document.getElementById('update').onclick = function () {
-                fetch(`${base}/update`).then((resp) => {
-                    setTimeout(() => { 
-                        window.location.reload();
-                    }, 20000);
+    <link rel="manifest" href="manifest.webmanifest">
+    <script type="module">
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js').then(registration => {
+                registration.addEventListener('updatefound', (event) => {
+                    console.log('Service Worker update detected!');
+                    const newWorker = registration.installing;
+                    newWorker.postMessage('SKIP_WAITING');
+                    newWorker.addEventListener('statechange', (event) => {
+                        if (newWorker.state === 'activated') {
+                            window.location.reload();
+                        }
+                    });
                 });
-            }
-
-            for (var btn of document.getElementsByTagName('button')) {
-                if(btn.id.indexOf('mode') == 0) {
-                    (function (b) {
-                        b.addEventListener('click', function (event) {
-                            fetch(`${base}/mode?no=` + b.id.replace('mode',''));
-                        }, false);
-                    })(btn);
-                }
-            }
-
-            document.getElementById('addColor').addEventListener('click', function (event) {
-                var controll = document.createElement('div');
-                controll.setAttribute('id', 'colorControll'+colorIncrement);
-
-                var slider = document.createElement('input');
-                slider.setAttribute('type', 'range');
-                slider.setAttribute('min', '0');
-                slider.setAttribute('max', '800');
-                slider.setAttribute('value', '0');
-                slider.setAttribute('class', 'positionSlider');
-                slider.setAttribute('id', 'positionSlider'+colorIncrement);
-                controll.append(slider);
-
-                var colorchooser = document.createElement('input');
-                colorchooser.setAttribute('type', 'color');
-                colorchooser.setAttribute('value', '#ff0000');
-                colorchooser.setAttribute('class', 'colorChooser');
-                colorchooser.setAttribute('id', 'colorChooser'+colorIncrement);
-                controll.append(colorchooser);
-
-                document.getElementById('colorControlls').append(controll);
-
-                var indicator = document.createElement('div');
-                indicator.setAttribute('id', 'posIndicator'+colorIncrement);
-                indicator.setAttribute('class', 'posIndicator');
-                document.getElementById('colorbar').append(indicator);
-
-                (function (n) {
-                    slider.addEventListener('change', function (event) {
-                        indicator.style.left = (event.target.value-10)+'px';
-                        colors[n].pos = event.target.value;
-                        updateColors();
-                    }, false);
-                })(colorIncrement);
-
-                (function (n) {
-                    colorchooser.addEventListener('change', function (event) {
-                        indicator.style.background = event.target.value;
-                        colors[n].color = event.target.value;
-                        updateColors();
-                    }, false);
-                })(colorIncrement);
-
-                colors[colorIncrement] = {"color":"#ff0000", "pos":0};
-
-                colorIncrement++;
             });
-
-            // <div id="colorControll0"></div>
-
-            // document.getElementById('positionSlider0').addEventListener('change', function (event) {
-            //     document.getElementById('posIndicator0').style.left = (event.target.value-10)+'px';
-            // }, false);
-
-            fetch(`${base}/ver`).then(async (ver) => {
-                var version = await ver.text();
-                document.getElementById('ver').innerText = version;
-                document.title = "PiTree v" + version;
+            navigator.serviceWorker.ready.then(registration => {
+                import('/js/main.js').then(main => { window.main = main; window.main.onload() });
             });
-
-            checkUpdates();
         }
-
-        window.addEventListener("load", window.onload, false); 
+    </script>
+    <script>
+        
     </script>
 </head>
 
@@ -188,49 +143,49 @@
     <h3>PiTree v<span id="ver">...</span> <img id="update" title="updates avalible" style="display: none;"
             src="update.png" /></h3>
     <br />
-    <div>Color:</div>
-    <button id="mode0">Warm</button>
-    <button id="mode1">White</button>
-    <button id="mode2">Random</button>
-    <button id="mode3">Red Yellow Green Auqua Blue Violet</button>
-    <button id="mode4">Rainbow</button>
+    <div class="sechead">Color:</div>
+    <button id="mode0" class="mode">Warm</button>
+    <button id="mode1" class="mode">White</button>
+    <button id="mode2" class="mode">Random</button>
+    <button id="mode3" class="mode">Red Yellow Green Auqua Blue Violet</button>
+    <button id="mode4" class="mode">Rainbow</button>
     <br /><br />
-    <div>Style:</div>
-    <button id="mode50">Solid</button>
-    <button id="mode51">Cycle</button>
-    <button id="mode52">Step</button>
-    <button id="mode53">Bidirection Alternate Step</button>
-    <button id="mode54">Wipe</button>
-    <button id="mode55">Fanfare</button>
-    <button id="mode56">Chase</button>
-    <button id="mode57">Race</button>
-    <button id="mode58">Race2</button>
+    <div class="sechead">Style:</div>
+    <button id="mode50" class="mode">Solid</button>
+    <button id="mode51" class="mode">Cycle</button>
+    <button id="mode52" class="mode">Step</button>
+    <button id="mode53" class="mode">Bidirection Alternate Step</button>
+    <button id="mode54" class="mode">Wipe</button>
+    <button id="mode55" class="mode">Fanfare</button>
+    <button id="mode56" class="mode">Chase</button>
+    <button id="mode57" class="mode">Race</button>
+    <button id="mode58" class="mode">Race2</button>
     <br /><br />
-    <div>Speed:</div>
-    <button id="mode100">Quarter (1/4)</button>
-    <button id="mode101">Half (1/2)</button>
-    <button id="mode102">1</button>
-    <button id="mode103">2</button>
-    <button id="mode104">4</button>
-    <button id="mode105">8</button>
-    <button id="mode106">Slow (30)</button>
-    <button id="mode107">Medium (60)</button>
-    <button id="mode108">Fast (120)</button>
-    <button id="mode109">Very Fast (240)</button>
-    <button id="mode110">Full (750)</button>
-    <button id="mode111">2x</button>
-    <button id="mode112">4x</button>
+    <div class="sechead">Speed:</div>
+    <button id="mode100" class="mode">Quarter (1/4)</button>
+    <button id="mode101" class="mode">Half (1/2)</button>
+    <button id="mode102" class="mode">1</button>
+    <button id="mode103" class="mode">2</button>
+    <button id="mode104" class="mode">4</button>
+    <button id="mode105" class="mode">8</button>
+    <button id="mode106" class="mode">Slow (30)</button>
+    <button id="mode107" class="mode">Medium (60)</button>
+    <button id="mode108" class="mode">Fast (120)</button>
+    <button id="mode109" class="mode">Very Fast (240)</button>
+    <button id="mode110" class="mode">Full (750)</button>
+    <button id="mode111" class="mode">2x</button>
+    <button id="mode112" class="mode">4x</button>
     <!-- <button id="mode8">Wipe</button>
     <button id="mode6">Fanfare</button>
     <button id="mode9">Chase</button>
     <button id="mode7">Random Fast</button> -->
-    <br /><br />
+    <!-- <br /><br />
     <div>Custom Pallet:</div>
     <br />
     <div id="colorbar" style="background: #fff;"></div>
     <div id="colorControlls"></div>
     <button id="addColor">Add Color</button>
-    <div id="colorinfo"></div>
+    <div id="colorinfo"></div> -->
 </body>
 
 </html>
