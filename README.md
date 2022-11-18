@@ -1,4 +1,8 @@
 # pitree
+
+https://chillistore.proxy.chilliwebs.com/storage/Projects/pitree/static/
+
+
 sympy 
 
 sp.sympify("x**2").evalf(subs={'x': 4, 't': 5})

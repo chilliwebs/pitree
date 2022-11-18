@@ -1,6 +1,7 @@
 import threading, queue, time, random, os, subprocess, math
 from rpi_ws281x import Color, PixelStrip, ws
 from flask import Flask, request, current_app
+from flask_cors import CORS
 import compiler
 
 # LED strip configuration:
@@ -15,6 +16,7 @@ LED_STRIP = ws.WS2811_STRIP_RGB
 
 q = queue.Queue()
 app = Flask(__name__)
+cors = CORS(app)
 strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
 strip.begin()
 mode = 0

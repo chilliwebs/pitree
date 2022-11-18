@@ -62,6 +62,7 @@
         }
     </style>
     <script>
+        var base = 'https://pitree_home.proxy.chilliwebs.com'; //'';
         var updateIntervalTime = 0;
         var colorIncrement = 0;
         var colors = {};
@@ -84,7 +85,7 @@
         }
 
         function checkUpdates() {
-            fetch('/hasupdate').then((g) => g.text()).then((v) => {
+            fetch(`${base}/hasupdate`).then((g) => g.text()).then((v) => {
                 if (v === "True") {
                     document.getElementById('update').style.display = 'inline';
                     clearInterval(window.updateInterval);
@@ -99,7 +100,7 @@
 
         window.onload = async function () {
             document.getElementById('update').onclick = function () {
-                fetch('/update').then((resp) => {
+                fetch(`${base}/update`).then((resp) => {
                     setTimeout(() => { 
                         window.location.reload();
                     }, 20000);
@@ -110,7 +111,7 @@
                 if(btn.id.indexOf('mode') == 0) {
                     (function (b) {
                         b.addEventListener('click', function (event) {
-                            fetch('/mode?no=' + b.id.replace('mode',''));
+                            fetch(`${base}/mode?no=` + b.id.replace('mode',''));
                         }, false);
                     })(btn);
                 }
@@ -170,7 +171,7 @@
             //     document.getElementById('posIndicator0').style.left = (event.target.value-10)+'px';
             // }, false);
 
-            fetch('/ver').then(async (ver) => {
+            fetch(`${base}/ver`).then(async (ver) => {
                 var version = await ver.text();
                 document.getElementById('ver').innerText = version;
                 document.title = "PiTree v" + version;
@@ -178,6 +179,8 @@
 
             checkUpdates();
         }
+
+        window.addEventListener("load", window.onload, false); 
     </script>
 </head>
 
