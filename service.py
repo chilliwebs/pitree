@@ -270,6 +270,18 @@ def worker():
 def index():
     return current_app.send_static_file('index.html')
 
+@app.route("/favicon.ico")
+def favicon():
+    return current_app.send_static_file('favicon.ico')
+
+@app.route("/icon-192.png")
+def icon192():
+    return current_app.send_static_file('icon-192.png')
+
+@app.route("/icon-512.png")
+def icon512():
+    return current_app.send_static_file('icon-512.png')
+
 @app.route("/update.png")
 def update_img():
     return current_app.send_static_file('update.png')
@@ -277,6 +289,18 @@ def update_img():
 @app.route("/bg.jpg")
 def bg_img():
     return current_app.send_static_file('bg.jpg')
+
+@app.route("/manifest.webmanifest")
+def webmanifest():
+    return current_app.send_static_file('manifest.webmanifest')
+
+@app.route("/service-worker.js")
+def service_worker_js():
+    return current_app.send_static_file('service-worker.js')
+
+@app.route("/main.js")
+def main_js():
+    return current_app.send_static_file('main.js')
 
 @app.route("/ver")
 def ver():
