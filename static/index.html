@@ -130,7 +130,7 @@
                 });
             });
             navigator.serviceWorker.ready.then(registration => {
-                import('/js/main.js').then(main => { window.main = main; window.main.onload() });
+                import('/main.js').then(main => { window.main = main; window.main.onload() });
             });
         }
     </script>
