@@ -33,7 +33,7 @@ function checkUpdates() {
     });
 }
 
-export async function onload() {
+export function onload() {
     document.getElementById('update').onclick = function () {
         fetch('/update').then((resp) => {
             setTimeout(() => {
