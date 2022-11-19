@@ -1,4 +1,4 @@
-self.ver = '1.8';
+self.ver = '1.9';
 
 self.addEventListener('install', function (e) {
     console.log('Installing version ' + self.ver);
