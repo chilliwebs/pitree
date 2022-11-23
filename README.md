@@ -24,3 +24,8 @@ sp.lambdify('x', sp.sympify("ceil(sin(x*2))"), "numpy")(data)
 \operatorname{round}\left(3\sin\left(\tan\left(\frac{x}{3}\right)\right)\right)+3
 
 \operatorname{round}\left(\operatorname{mod}\left(x,5\right)\right)
+
+
+Eli - Rainbow Step Full
+Luke  - RYGABV BAS 4x
+Mom - RYGABV Wipe Fast(120)

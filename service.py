@@ -118,7 +118,16 @@ def tree():
             if f[i][0] < 0 or f[i][1] < 0:
                 strip.setPixelColor(i, Color(0, 0, 0))
             else:
-                strip.setPixelColor(i, current_palate[int(f[i][0])%l][int(f[i][1])%l])
+                try:
+                    strip.setPixelColor(i, current_palate[int(f[i][0])%l][int(f[i][1])%l])
+                except:
+                    print("Error occurred")
+                    print("i = ")
+                    print(i)
+                    print("f = ")
+                    print(f)
+                    return
+                
         
         strip.show()
         fps = FPS #(1/SPEED) if SPEED < (1/FPS) else FPS
