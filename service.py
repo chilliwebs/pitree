@@ -126,6 +126,16 @@ def tree():
                     print(i)
                     print("f = ")
                     print(f)
+                    print("l = ")
+                    print(l)
+                    print("f[i][0]")
+                    print(f[i][0])
+                    print("f[i][1]")
+                    print(f[i][1])
+                    print("int(f[i][0])%l")
+                    print(int(f[i][0])%l)
+                    print("int(f[i][1])%l")
+                    print(int(f[i][1])%l)
                     return
                 
         
